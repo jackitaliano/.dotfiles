@@ -1,0 +1,13 @@
+*.mono*
+*Microsoft*
+*Nuget*
+*broot*
+*filezilla*
+*iterm2*
+*jgit*
+*neofetch*
+*stetic*
+
+.DS_Store
+.git
+.git.bak
