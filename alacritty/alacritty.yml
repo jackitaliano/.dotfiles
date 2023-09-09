@@ -1,0 +1,13 @@
+font:
+  normal:
+    family: "FiraCode Nerd Font Mono"
+window:
+  decorations: None
+  padding:
+    x: 0
+    y: 0
+  margin:
+    x: 0
+    y: 0
+  dynamic_padding: false
+  opacity: 0.85
