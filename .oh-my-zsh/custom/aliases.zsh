@@ -2,6 +2,9 @@
 alias so="source ~/.zshrc"
 alias cl="clear"
 
+# python
+alias python=python3
+
 # vi
 alias v="nvim"
 alias vi="nvim"
@@ -11,6 +14,7 @@ alias nvi="nvim"
 
 # tmux
 alias t="tmux"
+alias tn="tmux new -t"
 alias tl="tmux ls"
 alias ta="tmux attach"
 alias tk="tmux kill-session"
@@ -27,4 +31,7 @@ alias gcnb="git checkout -b"
 alias gpnb="git push -u origin"
 alias gps="git push"
 alias gp="git pull"
-alias gaa="git add all"
+alias gaa="git add ."
+
+# copy output to clipboard
+alias pb="pbcopy"

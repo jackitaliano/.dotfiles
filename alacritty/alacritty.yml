@@ -1,6 +1,8 @@
 font:
   normal:
     family: "FiraCode Nerd Font Mono"
+  size: 14.0
+
 window:
   decorations: None
   padding:
@@ -10,4 +12,24 @@ window:
     x: 0
     y: 0
   dynamic_padding: false
-  opacity: 0.85
+  opacity: 0.9
+  startup_mode: Maximized
+  option_as_alt: OnlyLeft
+
+colors:
+  primary:
+    background: '#121a21'
+    foreground: '#e6e1cf'
+
+  cursor:
+    cursor: '#378bb4'
+    text: '#ebe6d7'
+
+  line_indicator:
+    foreground: '#ffffff'
+    background: '#ffffff'
+
+  selection:
+    text: '#ebe6d7'
+    background: '#304251'
+
