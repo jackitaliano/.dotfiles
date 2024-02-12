@@ -197,23 +197,26 @@ require('telescope').setup {
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
+local tsBuiltin = require('telescope.builtin')
+
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>?', tsBuiltin.oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader><space>', tsBuiltin.buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+  tsBuiltin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
+local excludes = { "!package-lock.json", "!node_modules/*", "!*/build/*", "!.git/*" }
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>gf', tsBuiltin.git_files, { desc = 'Search [G]it [F]iles' })
+vim.keymap.set('n', '<leader>sf', tsBuiltin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sh', tsBuiltin.help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sw', tsBuiltin.grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', function() tsBuiltin.live_grep({ glob_pattern = excludes }) end, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sd', tsBuiltin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -309,11 +312,11 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gr', tsBuiltin.lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>sS', require('telescope.builtin').lsp_document_symbols, { desc = 'Document [S]ymbols' })
-  nmap('<leader>ss', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[s]ymbols' })
+  nmap('<leader>sS', tsBuiltin.lsp_document_symbols, { desc = 'Document [S]ymbols' })
+  nmap('<leader>ss', tsBuiltin.lsp_dynamic_workspace_symbols, { desc = '[s]ymbols' })
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
