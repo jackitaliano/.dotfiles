@@ -1,0 +1,37 @@
+[font]
+size = 14
+
+  [font.normal]
+  family = "FiraCode Nerd Font Mono"
+
+[window]
+decorations = "Full"
+dynamic_padding = false
+opacity = 0.9
+startup_mode = "Maximized"
+option_as_alt = "OnlyLeft"
+
+  [window.padding]
+  x = 0
+  y = 0
+
+  # [window.margin]
+  # x = 0
+  # y = 0
+
+[colors]
+[colors.primary]
+background = "#121a21"
+foreground = "#e6e1cf"
+
+[colors.cursor]
+cursor = "#378bb4"
+text = "#ebe6d7"
+
+[colors.line_indicator]
+foreground = "#ffffff"
+background = "#ffffff"
+
+[colors.selection]
+text = "#ebe6d7"
+background = "#304251"

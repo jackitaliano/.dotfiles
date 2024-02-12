@@ -4,7 +4,6 @@ font:
   size: 14.0
 
 window:
-  decorations: None
   padding:
     x: 0
     y: 0

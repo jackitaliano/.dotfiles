@@ -1,7 +1,7 @@
 -- dirs
-local root = "/Users/jackitaliano"
+local root = "/Users/jitalian"
 local notesDir = root .. "/notes/2023"
-local projectsDir = root .. "/projects"
+local projectsDir = root .. "/repos"
 local configDir = root .. "/.config"
 
 -- return {
