@@ -23,4 +23,5 @@ return {
   vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" }),
   vim.keymap.set("v", ">", ">gv", { desc = "Persist select" }),
   vim.keymap.set("v", "<", "<gv", { desc = "Persist select" }),
+
 }

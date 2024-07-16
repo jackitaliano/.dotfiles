@@ -23,7 +23,14 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- Git
-  'tpope/vim-fugitive',
+  {
+    'tpope/vim-fugitive',
+    keys = {
+      { "<leader>gD", "<cmd>Git diff<cr>", desc = "[D]iff" },
+      { "<leader>gd", "<cmd>Gvdiffsplit<cr>", desc = "v[d]iff" },
+      { "<leader>gr", "<cmd>Gread<cr>", desc="[r]ead" }
+    },
+  },
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -120,6 +127,15 @@ require('lazy').setup({
   { import = 'plugins' },
   { import = 'config' },
 }, {})
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldlevel = 999
+
+-- set foldmethod=expr
+-- set foldexpr=nvim_treesitter#foldexpr()
+-- set nofoldenable                     " Disable folding at startup.
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -220,11 +236,24 @@ vim.keymap.set('n', '<leader>sd', tsBuiltin.diagnostics, { desc = '[S]earch [D]i
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'markdown', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript',
-    'vimdoc', 'vim' },
+  ensure_installed = {
+    'markdown',
+    'c',
+    'cpp',
+    'go',
+    'lua',
+    'python',
+    'rust',
+    'tsx',
+    'javascript',
+    'typescript',
+    'vimdoc',
+    'vim',
+  },
 
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  sync_install = false,
+  auto_install = true,
+  ignore_install = {},
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -283,7 +312,7 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
--- Diagnostic keymaps
+-- Diagnostic keys
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>ce', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
@@ -292,12 +321,6 @@ vim.keymap.set('n', '<leader>cq', vim.diagnostic.setloclist, { desc = 'Open diag
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -306,19 +329,20 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>cr', vim.lsp.buf.rename, '[r]ename')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
+  -- nmap('<leader>cr', vim.lsp.buf.rename, '[r]ename')
+  -- nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', tsBuiltin.lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>sS', tsBuiltin.lsp_document_symbols, { desc = 'Document [S]ymbols' })
-  nmap('<leader>ss', tsBuiltin.lsp_dynamic_workspace_symbols, { desc = '[s]ymbols' })
+  nmap('<leader>sS', tsBuiltin.lsp_document_symbols, 'Document [S]ymbols')
+  nmap('<leader>ss', tsBuiltin.lsp_dynamic_workspace_symbols, '[s]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -332,12 +356,13 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
-  clangd = {},
-  pyright = {},
-  tsserver = {},
+  clangd = { filetypes = { 'c', 'cpp' } },
+  tsserver = { filetypes = { 'ts', 'js'} },
+  ruff = { filetypes = { 'py' } },
   html = { filetypes = { 'html', 'twig', 'hbs'} },
-  marksman = {},
-
+  marksman = { filetypes = 'md' },
+  gopls = { filetypes = 'go' },
+  svelte = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -386,10 +411,10 @@ cmp.setup {
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-p>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<C-u>'] = cmp.mapping.scroll_docs(4),
+    ['<C-CR>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,

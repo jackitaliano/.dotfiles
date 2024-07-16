@@ -1,46 +1,23 @@
--- dirs
-local root = "/Users/jitalian"
-local notesDir = root .. "/notes/2023"
-local projectsDir = root .. "/repos"
-local configDir = root .. "/.config"
-
--- return {
---   "nvim-tree/nvim-tree.lua",
---   dependencies = { "nvim-tree/nvim-web-devicons" },
---   keys = {
---     { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "File Explorer" },
---   },
---   opts = function()
---     -- OR setup with some options
---     require("nvim-tree").setup({
---       view = {
---         width = 30,
---       },
---       renderer = {
---         group_empty = true,
---       },
---       filters = {
---         dotfiles = true,
---       },
---     })
---   end,
--- }
-
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
-return {
-  -- oil filetree
-  {
-    'stevearc/oil.nvim',
-    opts = {},
-    -- Optional dependencies
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    keys = {
-      { "<leader>me", "<cmd>Oil --float " .. notesDir .. "<cr>", desc = "[e]xplore notes" },
+local minifiles_toggle = function(...)
+  if not MiniFiles.close() then MiniFiles.open(...) end
+end
 
+return {
+  {
+    'echasnovski/mini.files',
+    opts = {
+      windows = {
+        preview = true,
+        width_focus = 35
+      }
     },
+    keys = {
+      { "<leader>e", minifiles_toggle, desc = "e[xplore]" }
+    },
+    lazy=false
   },
-  -- Neotree
   {
     "nvim-neo-tree/neo-tree.nvim",
     version = "*",
@@ -50,7 +27,7 @@ return {
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer" },
+      { "<leader>E", "<cmd>Neotree toggle<cr>", desc = "[E]xplore" },
     },
     config = function()
       require('neo-tree').setup {
@@ -59,5 +36,24 @@ return {
         },
       }
     end,
+    lazy = true
   }
+  -- oil filetree
+  -- {
+  --   'stevearc/oil.nvim',
+  --   opts = {
+  --     default_file_exporer = true,
+  --     float = {
+  --       padding = 4
+  --     }
+  --   },
+  --   -- Optional dependencies
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   keys = {
+  --     { "<leader>ce", "<cmd>Oil --float<cr>", desc = "[e]xplore " },
+  --
+  --   },
+  --   lazy=false
+  -- },
+  -- Neotree
 }
