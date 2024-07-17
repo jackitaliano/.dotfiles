@@ -10,6 +10,7 @@ abbr -a tl tmux ls
 abbr -a ta tmux attach -s
 abbr -a tk tmux kill-session
 abbr -a tks tmux kill-server
+abbr -a ts tmux-sessionizer
 
 # git
 abbr -a g git
