@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 fish_add_path -a "$HOME/.local/bin"
+fish_add_path -a "/opt/homebrew/bin"
 
 source ~/.config/fish/functions/abbr.fish
 source ~/.config/fish/functions/zoxide.fish
