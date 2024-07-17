@@ -5,7 +5,8 @@ size = 14
   family = "FiraCode Nerd Font Mono"
 
 [window]
-decorations = "Full"
+# decorations = "Full"
+decorations = "None"
 dynamic_padding = false
 opacity = 0.8
 startup_mode = "Maximized"
