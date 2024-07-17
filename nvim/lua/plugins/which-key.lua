@@ -5,12 +5,15 @@ return {
   opts = function()
     local wk = require('which-key')
 
-    wk.register({["<leader>c"] = { name = "Code" }})
-    wk.register({["<leader>m"] = { name = "Notes" }})
-    wk.register({["<leader>s"] = { name = "Search" }})
-    wk.register({["<leader>g"] = { name = "Git" }})
-    wk.register({["<leader>w"] = { name = "Workspace" }})
-    wk.register({["<leader>d"] = { name = "Document" }})
-    wk.register({["<leader>f"] = { name = "Files" }})
+    wk.add({
+      { "<leader>c", group = "Code" },
+      { "<leader>s", group = "Search" },
+      { "<leader>b", group = "Buffer" },
+      { "<leader>g", group = "Git" },
+      { "<leader>f", group = "Files" },
+      { "<leader>d", group = "Document" },
+      { "<leader>w", group = "Write" },
+      { "<leader>m", group = "Notes" },
+    })
   end,
-}
+} 
