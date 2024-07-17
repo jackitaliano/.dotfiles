@@ -249,6 +249,7 @@ require('nvim-treesitter.configs').setup {
     'typescript',
     'vimdoc',
     'vim',
+    'svelte',
   },
 
   sync_install = false,
