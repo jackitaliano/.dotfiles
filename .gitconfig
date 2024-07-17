@@ -1,0 +1,12 @@
+[user]
+	name = Jack Italiano
+	email = jitaliano.dev@gmail.com
+	username = jackitaliano
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[web]
+	browser = arc
+[color]
+	ui = auto
