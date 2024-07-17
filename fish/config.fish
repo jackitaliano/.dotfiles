@@ -14,4 +14,3 @@ end
 if [ -f "$HOME/anaconda3/bin/conda" ]
     eval "$HOME/anaconda3/bin/conda" "shell.fish" "hook" $argv | source
 end
-
