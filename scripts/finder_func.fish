@@ -2,19 +2,23 @@
 
 function finder
 	set argc $(count $argv)
-
+	
 	if [ $argc -eq 1 ]
-		set selected $1
+		set dir $argv[1]
+		set selected_pretty $(find $dir -mindepth 1 -maxdepth 10 \( -name '.*' -o -name 'node_modules' \) -prune -o -type d -print | sed "s|^/Users/$USER/|~/|" | \
+		fzf  --preview 'ls -AFh --color $(echo {} | sed "s|^~/|/Users/$USER/|") | bat --color=always --theme=OneHalfDark' --height=100% --padding=2 --border=double --prompt='➤ ' --pointer='→' --preview-label='⟨ Directory Contents ⟩' --header='Finder - ⟨ Work Dir ⟩' --header-first --color='fg:magenta'
+		)
 	else
-		set selected $(printf "$(find ~/projects ~/.dotfiles -mindepth 1 -maxdepth 1 -type d | grep -v '/\.[^/]*$')\n$HOME/.dotfiles" | \
-		fzf  --preview 'ls -AFh --color {} | bat --style=grid' --height=75% --margin=10%,5%,5%,10% --padding=2 --border=double --prompt='➤ ' --pointer='→' --preview-label='⟨ Directory Contents ⟩' --header='Finder' --header-first --color='fg:magenta'
+		set selected_pretty $(printf "$(find ~/projects ~/.dotfiles -mindepth 1 -maxdepth 3 \( -name '.*' -o -name 'node_modules' \) -prune -o -type d -print )\n$HOME/.dotfiles" | sed "s|^/Users/$USER/|~/|" | \
+		fzf  --preview 'ls -AFh --color $(echo {} | sed "s|^~/|/Users/$USER/|") | bat --color=always --theme=OneHalfDark' --height=100% --padding=2 --border=double --prompt='➤ ' --pointer='→' --preview-label='⟨ Directory Contents ⟩' --header='Finder - ⟨ All ⟩' --header-first --color='fg:magenta'
 	)
 	end
 
-	if [ -z $selected ]
+	if [ -z $selected_pretty ]
 		return 0
 	end
 
+	set selected $(echo $selected_pretty | sed "s|^~/|/Users/$USER/|")
 	set selected_name $(basename "$selected" | tr . _)
 	cd $selected
 

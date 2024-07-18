@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
  
 if [[ $# -eq 1 ]]; then
-	selected=$1
+	selected_pretty=$1
 else
-	selected=$(printf "$(find ~/projects ~/.dotfiles -mindepth 1 -maxdepth 1 -type d | grep -v '/\.[^/]*$')\n$HOME/.dotfiles" | \
-		fzf  --preview 'ls -AFh --color {} | bat --style=grid' --height=75% --margin=10%,5%,5%,10% --padding=2 --border=double --prompt='➤ ' --pointer='→' --preview-label='⟨ Directory Contents ⟩' --header='Tmux Sessionizer' --header-first --color='fg:magenta'
+	selected_pretty=$(printf "$(find ~/projects ~/.dotfiles -mindepth 1 -maxdepth 1 \( -name '.*' -o -name 'node_modules' \) -prune -o -type d -print )\n$HOME/.dotfiles" | sed "s|^/Users/$USER/|~/|" | \
+		fzf  --preview 'ls -AFh --color $(echo {} | sed "s|^~/|/Users/$USER/|") | bat --color=always --theme=OneHalfDark' --height=100% --padding=2 --border=double --prompt='➤ ' --pointer='→' --preview-label='⟨ Directory Contents ⟩' --header='Tmux Sessionizer' --header-first --color='fg:magenta'
 	)
 fi
 
-if [[ -z $selected ]]; then
+if [[ -z $selected_pretty ]]; then
 	exit 0
 fi
 
+selected=$(echo $selected_pretty | sed "s|^~/|/Users/$USER/|")
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 

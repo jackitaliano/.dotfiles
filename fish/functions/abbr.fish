@@ -29,3 +29,4 @@ abbr -a gaa git add .
 abbr -a pb pbcopy
 abbr -a findh find ~ \\\( -path ~/Library -o -path ~/Desktop -o -path ~/.cups -o -path ~/.Trash \\\) -prune -o
 abbr -a f finder
+abbr -a F 'finder $PWD'
