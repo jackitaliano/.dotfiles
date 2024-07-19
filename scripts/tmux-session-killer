@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+ 
+
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] || [[ -z $tmux_running ]]; then
+	exit 0
+fi
+
+sessions=$(tmux ls)
+
+if [[ -z sessions ]]; then
+	exit 0
+fi
+
+selected= printf "$sessions" | \
+	fzf  --preview 'bat --color=always --theme=OneHalfDark {}' --height=100% --padding=2 --border=double --prompt='➤ ' --pointer='→' --preview-label='⟨ Directory Contents ⟩' --header='Tmux Sessionizer' --header-first --color='fg:magenta'
+
+echo $selected
+
+name=$(echo $selected | awk '{print $1}' $selected)
+
+echo $name
