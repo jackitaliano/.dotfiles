@@ -8,10 +8,11 @@ else
 )
 fi
 
+
 if [ -z $selected_pretty ]; then
 	exit 0
 fi
 
 selected=$(echo $selected_pretty | sed "s|^~/|/Users/$USER/|")
 selected_name=$(basename "$selected" | tr . _)
-nvim $selected
+tmux neww bash -c "nvim $selected"

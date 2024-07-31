@@ -10,8 +10,6 @@ return {
       }
     })
 
-    vim.keymap.del("n", "<C-k>")
-
     vim.keymap.set("n", "<C-a>", function() harpoon:list():add() end)
     vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 

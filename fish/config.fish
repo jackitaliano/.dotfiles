@@ -5,7 +5,15 @@ source ~/.dotfiles/scripts/source_funcs.fish
 
 set -U fish_history_max_entries 5000
 
-contains /path $fish_user_paths; or set -Ua fish_user_paths /path
+set localBinScripts "$HOME/.local/bin/scripts"
+set localBin "$HOME/.local/bin"
+set brewBin "/opt/homebrew/bin"
+set condaBin "$HOME/anaconda3/bin"
+
+contains $localBin $fish_user_paths; or fish_add_path $localBin
+contains $localBinScripts $fish_user_paths; or fish_add_path $localBinScripts
+contains $brewBin $fish_user_paths; or fish_add_path $brewBin
+contains $condaBin $fish_user_paths; or fish_add_path $condaBin
 
 if [ -f "$HOME/fish/.keys" ]
     source ~/.config/fish/.keys
