@@ -5,6 +5,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.splitright = true
 
+vim.g.python3_host_prog=vim.fn.expand("~/anaconda3/envs/CV/bin/python")
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -352,6 +354,7 @@ local servers = {
   clangd = { filetypes = { 'c', 'cpp' } },
   tsserver = { filetypes = { 'ts', 'js'} },
   ruff = { filetypes = { 'py' } },
+  pyright = { filetypes = { 'py' } },
   html = { filetypes = { 'html', 'twig', 'hbs'} },
   marksman = { filetypes = 'md' },
   gopls = { filetypes = 'go' },
