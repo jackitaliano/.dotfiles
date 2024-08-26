@@ -10,7 +10,7 @@ function fish_right_prompt
 
 
     set_color brcyan
-    echo -n (date "+%H%:%M:%S")
+    echo -n (date "+%H:%M:%S")
     echo -n " $stat "
     set_color normal
 end
