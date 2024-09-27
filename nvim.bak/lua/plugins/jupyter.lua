@@ -36,5 +36,9 @@ return {
     -- build = "pip3 install --user .",
     build = "conda run --no-capture-output -n CV pip install .",
     -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+    opts = {
+      default_notebook_URL = "localhost:8888",
+      -- jupyter_command = { "conda", "run", "--no-capture-output", "-n", "CV", "jupyter" }
+    }
   },
 }
