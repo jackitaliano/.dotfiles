@@ -8,7 +8,7 @@ size = 14
 # decorations = "Full"
 decorations = "None"
 dynamic_padding = false
-opacity = 0.8
+opacity = 1
 startup_mode = "Maximized"
 option_as_alt = "OnlyLeft"
 
@@ -22,8 +22,10 @@ option_as_alt = "OnlyLeft"
 
 [colors]
 [colors.primary]
-background = "#121a21"
-foreground = "#e6e1cf"
+# background = "#121a21"
+# foreground = "#e6e1cf"
+background = "#000000"
+
 
 [colors.cursor]
 cursor = "#378bb4"
@@ -36,3 +38,6 @@ background = "#ffffff"
 [colors.selection]
 text = "#ebe6d7"
 background = "#304251"
+
+[shell]
+program = "/usr/bin/fish"

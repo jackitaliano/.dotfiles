@@ -13,3 +13,4 @@
 .git.bak
 
 .keys
+.env

@@ -27,6 +27,13 @@ abbr -a gaa git add .
 
 # other
 abbr -a pb pbcopy
-abbr -a findh find ~ \\\( -path ~/Library -o -path ~/Desktop -o -path ~/.cups -o -path ~/.Trash \\\) -prune -o
-abbr -a f finder
-abbr -a F 'finder $PWD'
+#abbr -a findh find ~ \\\( -path ~/Library -o -path ~/Desktop -o -path ~/.cups -o -path ~/.Trash \\\) -prune -o
+abbr -a F finder
+abbr -a f 'finder "$(pwd | cut -d"/" -f1-5)"'
+
+# python
+abbr -a myenv 'python3 -m venv.venv'
+abbr -a pipd 'pip install $DEFAULT_PIP_INSTALLS'
+abbr -a pipr 'pip install -r requirements.txt'
+abbr -a pt pytest
+abbr -a ptc 'pytest --cov --cov-report=term-missing'
