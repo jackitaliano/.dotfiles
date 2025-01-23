@@ -5,6 +5,10 @@ function venv
     end
 
     set VENV_DIR $(find "$(pwd | cut -d"/" -f1-5)" -type d -name ".venv")
+    if not test -n "$VENV_DIR"
+        echo (set_color red) "no venv found" (set_color normal)
+        return 1
+    end
 
     if test (count ($VENV_DIR)) -gt 1
         for i in (seq (count $VENV_DIR))
@@ -49,6 +53,10 @@ function venv_silent
     end
 
     set VENV_DIR $(find "$(pwd | cut -d"/" -f1-5)" -type d -name ".venv")
+    if not test -n "$VENV_DIR"
+        echo (set_color red) "no venv found" (set_color normal)
+        return 1
+    end
 
     if test (count ($VENV_DIR)) -gt 1
         return 1
