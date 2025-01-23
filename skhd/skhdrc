@@ -1,0 +1,52 @@
+# change window focus within space
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus south
+alt - h : yabai -m window --focus south
+alt - l : yabai -m window --focus south
+
+# change focus between external displays (left and right)
+alt - s : yabai -m display --focus west
+alt - g : yabai -m display --focus east
+
+# swap windows
+cmd + alt - j : yabai -m window --swap south
+cmd + alt - k : yabai -m window --swap north
+cmd + alt - h : yabai -m window --swap west
+cmd + alt - l : yabai -m window --swap east
+
+# maximize window
+cmd + ctrl - return : yabai -m window --toggle zoom-fullscreen
+
+# balance out tree of windows
+cmd + ctrl - e : yabai -m space --balance
+
+# move window to prev and next space
+cmd + ctrl - p : yabai -m window --space prev;
+cmd + ctrl - n : yabai -m window --space next;
+
+# move window to display left and right
+cmd + ctrl - s : yabai -m window --display west; yabai -m display --focus west;
+cmd + ctrl - g : yabai -m window --display west; yabai -m display --focus east;
+
+# move window to space #
+cmd + ctrl - 1 : yabai -m window --space 1;
+cmd + ctrl - 1 : yabai -m window --space 2;
+cmd + ctrl - 1 : yabai -m window --space 3;
+cmd + ctrl - 1 : yabai -m window --space 4;
+cmd + ctrl - 1 : yabai -m window --space 5;
+cmd + ctrl - 1 : yabai -m window --space 6;
+cmd + ctrl - 1 : yabai -m window --space 7;
+
+# Open Applications
+cmd - return : open -a "Alacritty"
+cmd + shift - return : open -a "Google Chrome"
+cmd + shift - o : open -a "Microsoft Outlook"
+cmd + shift - m : open -a "Microsoft Teams"
+cmd + shift - n : open -a "Microsoft OneNote"
+cmd + shift - s : open -a "Spotify"
+
+# stop/start/restart yabai
+cmd + ctrl - q : yabai --stop-service
+cmd + ctrl - s : yabai --start-service
+cmd + ctrl - q : yabai --restart-service
+
