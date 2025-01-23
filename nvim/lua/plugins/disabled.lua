@@ -11,4 +11,8 @@ return {
     "hrsh7th/cmp-path",
     enabled = false,
   },
+  {
+    "nvim-neotest/neotest-go",
+    enabled = false,
+  },
 }
