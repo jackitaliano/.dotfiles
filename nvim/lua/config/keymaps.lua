@@ -6,6 +6,14 @@ local map = vim.keymap.set
 local unmap = vim.keymap.del
 -- vim.keymap.set("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" }),
 
+map("n", "<leader>cl", function()
+  if vim.wo.relativenumber then
+    vim.wo.relativenumber = false
+  else
+    vim.wo.relativenumber = true
+  end
+end, { desc = "Line Num" })
+
 -- unmap
 -- map("n", "<C-k>", "<Nop>")
 -- map("n", "<C-j>", "<Nop>")

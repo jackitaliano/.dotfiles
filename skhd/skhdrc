@@ -1,8 +1,8 @@
 # change window focus within space
 alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus south
-alt - h : yabai -m window --focus south
-alt - l : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
 
 # change focus between external displays (left and right)
 alt - s : yabai -m display --focus west
@@ -26,7 +26,7 @@ cmd + ctrl - n : yabai -m window --space next;
 
 # move window to display left and right
 cmd + ctrl - s : yabai -m window --display west; yabai -m display --focus west;
-cmd + ctrl - g : yabai -m window --display west; yabai -m display --focus east;
+cmd + ctrl - g : yabai -m window --display east; yabai -m display --focus east;
 
 # move window to space #
 cmd + ctrl - 1 : yabai -m window --space 1;
@@ -48,5 +48,5 @@ cmd + shift - s : open -a "Spotify"
 # stop/start/restart yabai
 cmd + ctrl - q : yabai --stop-service
 cmd + ctrl - s : yabai --start-service
-cmd + ctrl - q : yabai --restart-service
+cmd + ctrl - r : yabai --restart-service
 
