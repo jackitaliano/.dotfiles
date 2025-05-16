@@ -13,6 +13,14 @@
 -- options to `gitsigns.nvim`.
 --
 -- See `:help gitsigns` to understand what the configuration keys do
+
+local prefixes = require 'utils.prefixes'
+local utils = require 'utils.common'
+
+local git_prefix = prefixes.git.keys
+local hunk_prefix = prefixes.git.hunk.keys
+local git_ui_prefix = prefixes.ui.git.keys
+
 return {
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -33,8 +41,12 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
+        local git_map = utils.get_prefix_map(git_prefix, { buffer = bufnr })
+        local git_ui_map = utils.get_prefix_map(git_ui_prefix, { buffer = bufnr })
+        local hunk_map = utils.get_prefix_map(hunk_prefix, { buffer = bufnr })
+
         -- Navigation
-        map('n', ']c', function()
+        map('n', ']h', function()
           if vim.wo.diff then
             vim.cmd.normal { ']c', bang = true }
           else
@@ -42,7 +54,7 @@ return {
           end
         end, { desc = 'Jump to next git [c]hange' })
 
-        map('n', '[c', function()
+        map('n', '[h', function()
           if vim.wo.diff then
             vim.cmd.normal { '[c', bang = true }
           else
@@ -52,29 +64,30 @@ return {
 
         -- Actions
         -- visual mode
-        map('v', '<leader>hs', function()
+        hunk_map('v', 's', function()
           gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
         end, { desc = 'git [s]tage hunk' })
-        map('v', '<leader>hr', function()
+        hunk_map('v', 'r', function()
           gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
         end, { desc = 'git [r]eset hunk' })
+
+        hunk_map('n', 'd', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
+
         -- normal mode
-        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
-        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
-        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-        map('n', '<leader>hu', gitsigns.stage_hunk, { desc = 'git [u]ndo stage hunk' })
-        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-        map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
-        map('n', '<leader>hD', function()
+        git_map('n', 's', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
+        git_map('n', 'r', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
+        git_map('n', 'S', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
+        git_map('n', 'u', gitsigns.stage_hunk, { desc = 'git [u]ndo stage hunk' })
+        git_map('n', 'R', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
+        git_map('n', 'p', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
+        git_map('n', 'b', gitsigns.blame_line, { desc = 'git [b]lame line' })
+        git_map('n', 'd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
+        git_map('n', 'D', function()
           gitsigns.diffthis '@'
         end, { desc = 'git [D]iff against last commit' })
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-        map('n', '<leader>tD', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
+        git_ui_map('n', 'b', gitsigns.toggle_current_line_blame, { desc = 'Toggle [B]lame' })
       end,
     },
   },
 }
--- vim: ts=2 sts=2 sw=2 et

@@ -11,7 +11,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '<leader>e', ':Neotree toggle<CR>', desc = 'NeoTree', silent = true },
+    { '<leader>e', '<cmd>Neotree toggle<CR>', desc = 'NeoTree', silent = true },
   },
   opts = {
     filesystem = {
@@ -20,7 +20,15 @@ return {
         hide_gitignored = false,
       },
       content_layout = {
-        width = 25,
+        width = 22,
+      },
+    },
+    window = {
+      width = 25,
+      mappings = {
+        ['l'] = 'open',
+        -- ['h'] = 'close',
+        ['/'] = 'noop',
       },
     },
   },

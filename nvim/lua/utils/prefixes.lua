@@ -12,6 +12,10 @@ local M = {
   git = {
     name = 'Git',
     keys = leader .. 'g',
+    hunk = {
+      name = 'Git',
+      keys = leader .. 'gh',
+    },
   },
   search = {
     name = 'Search',
@@ -20,6 +24,10 @@ local M = {
   ui = {
     name = 'UI',
     keys = leader .. 'u',
+    git = {
+      name = 'Git',
+      keys = leader .. 'ug',
+    },
   },
   qf = {
     name = 'QuickFix',
