@@ -18,7 +18,7 @@ local function new_file_input()
   end)
 end
 
-local function rename_file_input()
+local function rename_file()
   vim.ui.input({ prompt = "New File Name:" }, function(input)
     if not input or input == "" then
       return
@@ -39,10 +39,13 @@ local function rename_file_input()
       return
     end
 
-    local ok, result = pcall(vim.cmd, { cmd = "sav", args = { string.format("%s", newFilePath) } })
+    local ok, result = pcall(
+      vim.cmd,
+      { cmd = "sav", args = { string.format("%s", newFilePath) } }
+    )
 
     if ok then
-      print("Saving to:", newFilePath)
+      print("Saving to:", newFilePath )
       vim.cmd({ cmd = "bdelete", args = { string.format("%s", currFileName) } })
       os.remove(currFilePath)
     else
@@ -52,6 +55,6 @@ local function rename_file_input()
 end
 
 return {
-  new_file = new_file_input,
-  rename_file = rename_file_input,
+  vim.keymap.set({ "n" }, "<leader>fn", new_file_input, { desc = "New File" }),
+  vim.keymap.set({ "n" }, "<leader>fr", rename_file, { desc = "Rename File" }),
 }

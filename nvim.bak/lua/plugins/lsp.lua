@@ -6,6 +6,7 @@ local servers = {
   lua_ls = {},
   pyright = {},
   terraformls = {},
+  gopls = {},
 }
 
 return {
@@ -31,6 +32,7 @@ return {
         "lua_ls",
         "pyright",
         "terraformls",
+        "gopls",
       }
 
       local servers_to_install = vim.tbl_filter(function(key)
