@@ -12,10 +12,7 @@
 -- Then, because we use the `opts` key (recommended), the configuration runs
 -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-local debug_prefix = '<leader>d'
-local search_prefix = '<leader>s'
-local find_prefix = '<leader>f'
-local ui_prefix = '<leader>u'
+local prefixes = require 'utils.prefixes'
 
 return {
   { -- Useful plugin to show you pending keybinds.
@@ -64,11 +61,12 @@ return {
 
       -- Document existing key chains
       spec = {
-        { debug_prefix, group = '[D]ebug' },
-        { search_prefix, group = '[S]earch' },
-        { find_prefix, group = '[F]ind' },
-        { ui_prefix, group = '[U]I' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { prefixes.debug.keys, group = prefixes.debug.name },
+        { prefixes.search.keys, group = prefixes.search.name },
+        { prefixes.find.keys, group = prefixes.find.name },
+        { prefixes.ui.keys, group = prefixes.ui.name },
+        { prefixes.git.keys, group = prefixes.git.name },
+        { prefixes.qf.keys, group = prefixes.qf.name },
       },
     },
   },

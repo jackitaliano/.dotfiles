@@ -6,7 +6,8 @@
 -- be extended to other languages as well. That's why it's called
 -- kickstart.nvim and not kitchen-sink.nvim ;)
 
-local debug_prefix = '<leader>d'
+local prefixes = require 'utils.prefixes'
+local prefix = prefixes.debug.keys
 
 return {
   -- NOTE: Yes, you can install new plugins here!
@@ -29,42 +30,42 @@ return {
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
     {
-      debug_prefix .. 'c',
+      prefix .. 'c',
       function()
         require('dap').continue()
       end,
       desc = 'Debug: Start/Continue',
     },
     {
-      debug_prefix .. 'i',
+      prefix .. 'i',
       function()
         require('dap').step_into()
       end,
       desc = 'Debug: Step Into',
     },
     {
-      '<F2>',
+      prefix .. 'o',
       function()
         require('dap').step_over()
       end,
       desc = 'Debug: Step Over',
     },
     {
-      '<F3>',
+      prefix .. 'O',
       function()
         require('dap').step_out()
       end,
       desc = 'Debug: Step Out',
     },
     {
-      debug_prefix .. 'b',
+      prefix .. 'b',
       function()
         require('dap').toggle_breakpoint()
       end,
       desc = 'Debug: Toggle Breakpoint',
     },
     {
-      debug_prefix .. 'B',
+      prefix .. 'B',
       function()
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
@@ -72,7 +73,7 @@ return {
     },
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     {
-      '<F7>',
+      prefix .. 'u',
       function()
         require('dapui').toggle()
       end,
