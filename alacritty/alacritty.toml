@@ -40,4 +40,4 @@ text = "#ebe6d7"
 background = "#304251"
 
 [shell]
-program = "/usr/bin/fish"
+program = "/opt/homebrew/bin/fish"

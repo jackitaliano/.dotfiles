@@ -96,37 +96,37 @@ return {
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
 
-      search_map = utils.get_prefix_map(search_prefix)
-      find_map = utils.get_prefix_map(find_prefix)
+      local search_map = utils.get_prefix_map(search_prefix)
+      local find_map = utils.get_prefix_map(find_prefix)
+      local map = utils.get_prefix_map ''
 
-      vim.keymap.set('n', search_prefix .. 'r', builtin.resume, { desc = '[S]earch [R]esume' })
-
-      search_map('n', 'h', drop(builtin.help_tags), { desc = '[S]earch [H]elp' })
-      search_map('n', 'k', drop(builtin.keymaps), { desc = '[S]earch [K]eymaps' })
-      search_map('n', 'w', ivy(builtin.grep_string), { desc = '[S]earch current [W]ord' })
-      search_map('n', 'g', ivy(builtin.live_grep), { desc = '[S]earch by [G]rep' })
-      search_map('n', 's', ivy(builtin.lsp_document_symbols), { desc = '[S]earch Document [s]ymbols' })
-      search_map('n', 'S', ivy(builtin.lsp_workspace_symbols), { desc = '[S]earch Workspace [S]symbols' })
-      search_map('n', 'd', ivy(builtin.diagnostics), { desc = '[S]earch [D]iagnostics' })
-      search_map('n', 'R', drop(builtin.registers), { desc = '[S]earch [R]egisters' })
-      search_map('n', 'm', ivy(builtin.marks), { desc = '[S]earch [M]arks' })
-      search_map('n', 'C', ivy(builtin.commands), { desc = '[S]earch [C]ommands' })
-      search_map('n', 't', '<cmd>TodoTelescope keywords=TODO<CR>', { desc = '[S]earch [T]odo' })
-      search_map('n', 'T', '<cmd>TodoTelescope keywords=FIX<CR>', { desc = '[S]earch [T]odo' })
+      search_map('n', 'r', builtin.resume, '[S]earch [R]esume')
+      search_map('n', 'h', drop(builtin.help_tags), '[S]earch [H]elp')
+      search_map('n', 'k', drop(builtin.keymaps), '[S]earch [K]eymaps')
+      search_map('n', 'w', ivy(builtin.grep_string), '[S]earch current [W]ord')
+      search_map('n', 'g', ivy(builtin.live_grep), '[S]earch by [G]rep')
+      search_map('n', 's', ivy(builtin.lsp_document_symbols), '[S]earch Document [s]ymbols')
+      search_map('n', 'S', ivy(builtin.lsp_workspace_symbols), '[S]earch Workspace [S]symbols')
+      search_map('n', 'd', ivy(builtin.diagnostics), '[S]earch [D]iagnostics')
+      search_map('n', 'R', drop(builtin.registers), '[S]earch [R]egisters')
+      search_map('n', 'm', ivy(builtin.marks), '[S]earch [M]arks')
+      search_map('n', 'C', ivy(builtin.commands), '[S]earch [C]ommands')
+      search_map('n', 't', '<cmd>TodoTelescope keywords=TODO<CR>', '[S]earch [T]odo')
+      search_map('n', 'T', '<cmd>TodoTelescope keywords=FIX<CR>', '[S]earch [T]odo')
       search_map('n', '/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, '[S]earch [/] in Open Files')
 
-      find_map('n', 'f', drop(builtin.find_files), { desc = '[S]earch [f]iles' })
-      find_map('n', 'F', ivy(builtin.find_files), { desc = '[S]earch [F]iles' })
-      find_map('n', '.', ivy(builtin.oldfiles), { desc = '[S]earch Recent Files ("." for repeat)' })
+      find_map('n', 'f', drop(builtin.find_files), '[S]earch [f]iles')
+      find_map('n', 'F', ivy(builtin.find_files), '[S]earch [F]iles')
+      find_map('n', '.', ivy(builtin.oldfiles), '[S]earch Recent Files ("." for repeat)')
 
-      vim.keymap.set('n', '<leader><leader>', drop(builtin.buffers), { desc = '[ ] Find existing buffers' })
+      map('n', '<leader><leader>', drop(builtin.buffers), '[ ] Find existing buffers')
 
-      vim.keymap.set('n', '<leader>/', drop(builtin.current_buffer_fuzzy_find), { desc = '[/] Fuzzily search in current buffer' })
+      map('n', '<leader>/', drop(builtin.current_buffer_fuzzy_find), '[/] Fuzzily search in current buffer')
     end,
   },
 }

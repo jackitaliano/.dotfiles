@@ -13,7 +13,7 @@ local M = {
     name = 'Git',
     keys = leader .. 'g',
     hunk = {
-      name = 'Git',
+      name = 'Hunk',
       keys = leader .. 'gh',
     },
   },
@@ -32,6 +32,10 @@ local M = {
   qf = {
     name = 'QuickFix',
     keys = leader .. 'q',
+  },
+  code_actions = {
+    name = 'Code Actions',
+    keys = leader .. 'c',
   },
 }
 

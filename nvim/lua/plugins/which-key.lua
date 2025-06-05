@@ -67,6 +67,7 @@ return {
         { prefixes.ui.keys, group = prefixes.ui.name },
         { prefixes.git.keys, group = prefixes.git.name },
         { prefixes.qf.keys, group = prefixes.qf.name },
+        { prefixes.git.hunk.keys, group = prefixes.qf.name },
       },
     },
   },
