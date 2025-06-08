@@ -12,16 +12,20 @@ end
 source ~/.config/fish/functions/abbr.fish
 #source ~/.config/fish/functions/zoxide.fish
 source ~/.dotfiles/scripts/source_funcs.fish
+source ~/.dotfiles/scripts/add_tmux_path.fish
+source ~/.dotfiles/scripts/git.fish
 
 set -U fish_history_max_entries 5000
 
 set localBinScripts "$HOME/.local/bin/scripts"
 set localBin "$HOME/.local/bin"
 set brewBin /opt/homebrew/bin
+set -U projectPaths "$HOME/projects"
 
 contains $localBin $fish_user_paths; or fish_add_path $localBin
 contains $localBinScripts $fish_user_paths; or fish_add_path $localBinScripts
 contains $brewBin $fish_user_paths; or fish_add_path $brewBin
 
+export TMUX_PATH="$(cat $HOME/.config/fish/.tmux_path)"
 export PATH="/opt/homebrew/bin:$HOME/bin/:$PATH"
 export HOMEBREW_NO_ANALYTICS=1

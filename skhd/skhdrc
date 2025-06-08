@@ -1,18 +1,18 @@
 # change window focus within space
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - h : yabai -m window --focus west
-alt - l : yabai -m window --focus east
+cmd + alt - j : yabai -m window --focus south
+cmd + alt - k : yabai -m window --focus north
+cmd + alt - h : yabai -m window --focus west
+cmd + alt - l : yabai -m window --focus east
 
 # change focus between external displays (left and right)
-alt - s : yabai -m display --focus west
-alt - g : yabai -m display --focus east
+cmd + alt - s : yabai -m display --focus west
+cmd + alt - g : yabai -m display --focus east
 
 # swap windows
-cmd + alt - j : yabai -m window --swap south
-cmd + alt - k : yabai -m window --swap north
-cmd + alt - h : yabai -m window --swap west
-cmd + alt - l : yabai -m window --swap east
+cmd + ctrl - j : yabai -m window --swap south
+cmd + ctrl - k : yabai -m window --swap north
+cmd + ctrl - h : yabai -m window --swap west
+cmd + ctrl - l : yabai -m window --swap east
 
 # maximize window
 cmd + ctrl - return : yabai -m window --toggle zoom-fullscreen
@@ -38,12 +38,18 @@ cmd + ctrl - 1 : yabai -m window --space 6;
 cmd + ctrl - 1 : yabai -m window --space 7;
 
 # Open Applications
-cmd - return : open -a "Alacritty"
-cmd + shift - return : open -a "Google Chrome"
-cmd + shift - o : open -a "Microsoft Outlook"
-cmd + shift - m : open -a "Microsoft Teams"
-cmd + shift - n : open -a "Microsoft OneNote"
-cmd + shift - s : open -a "Spotify"
+alt - return : open -a "Alacritty"
+alt - space : open -a "Microsoft Edge"
+alt - o : open -a "Microsoft Outlook"
+alt - t : open -a "Microsoft Teams"
+alt - n : open -a "Microsoft OneNote"
+alt - s : open -a "Spotify"
+# alt + shfit - return : open -a "Alacritty"; tmux switch-client -t notes || tmux attach -t notes || tmux new -d -s notes -c "$HOME/notes" && tmux switch-client -t notes
+# alt - r : shortcuts run "Open Reminders"
+
+# Shortcuts
+# alt + shift - r : shortcuts run "Create Reminder"
+
 
 # stop/start/restart yabai
 cmd + ctrl - q : yabai --stop-service

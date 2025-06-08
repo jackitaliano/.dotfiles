@@ -11,20 +11,24 @@ abbr -a ta tmux attach -s
 abbr -a tk tmux kill-session
 abbr -a tks tmux kill-server
 abbr -a ts tmux-sessionizer
+abbr -a tg tmux_grep
 
 # git
 abbr -a g git
-abbr -a gs git status
-abbr -a gd git diff
+abbr -a gs git status -s
+abbr -a gr git reset
 abbr -a gl git log --graph --decorate --all
 abbr -a gd git diff
 abbr -a gdl 'git diff "$(git rev-parse --short HEAD)^!"'
-abbr -a gcm 'git commit -m "'
+abbr -a gdl 'git diff "$(git rev-parse --short HEAD)^!"'
+abbr -a gcm 'git commit -m'
 abbr -a gc git commit
 
 abbr -a gcb git checkout
-abbr -a gcnb git checkout -b
-abbr -a gpnb git push -u origin
+abbr -a gcl git checkout -
+abbr -a gcd git checkout dev
+abbr -a gcn git checkout -b $BRANCH_PREFIX
+abbr -a gpn 'git push -u origin $(git branch --show-current)'
 abbr -a gps git push
 abbr -a gp git pull
 abbr -a gaa git add --all
@@ -40,6 +44,7 @@ abbr -a f 'finder "$(pwd | cut -d"/" -f1-5)"'
 
 # python
 abbr -a menv 'python3 -m venv .venv'
+abbr -a pv 'pyenv activate venv'
 abbr -a pipd 'pip install $DEFAULT_PIP_INSTALLS'
 abbr -a pipr 'pip install -r requirements.txt'
 abbr -a pt pytest
