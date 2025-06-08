@@ -83,7 +83,7 @@ return {
         git_map('n', 'u', gitsigns.stage_hunk, 'git [u]ndo stage hunk')
         git_map('n', 'R', gitsigns.reset_buffer, 'git [R]eset buffer')
         git_map('n', 'p', gitsigns.preview_hunk, 'git [p]review hunk')
-        git_map('n', 'b', gitsigns.blame_line, 'git [b]lame line')
+        -- git_map('n', 'b', gitsigns.blame_line, 'git [b]lame line')
         git_map('n', 'd', gitsigns.diffthis, 'git [d]iff against index')
         git_map('n', 'D', function()
           gitsigns.diffthis '@'

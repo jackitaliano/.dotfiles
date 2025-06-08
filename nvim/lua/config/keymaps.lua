@@ -76,11 +76,11 @@ map_l('n', '<tab>[', '<cmd>tabprevious<cr>', 'Previous Tab')
 -- QuickFix
 -------------------------------------
 
-map('n', '<C-p>', vim.cmd.cprev, 'Previous Quickfix')
-map('n', '<C-n>', vim.cmd.cnext, 'Next Quickfix')
+-- map('n', '<C-p>', vim.cmd.cprev, 'Previous Quickfix')
+-- map('n', '<C-n>', vim.cmd.cnext, 'Next Quickfix')
+-- map('n', '<C-q>', vim.cmd.copen, 'Open diagnostic [Q]uickfix list')
 
 -- Diagnostic keymaps
-map('n', '<C-q>', vim.cmd.copen, 'Open diagnostic [Q]uickfix list')
 
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
