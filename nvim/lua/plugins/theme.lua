@@ -11,13 +11,18 @@ return {
         lualine = {
           transparent = false, -- lualine center bar transparency
         },
+        highlights = {
+          ['@lsp.type.comment'] = {
+            fg = '#559962',
+          },
+        },
         diagnostics = {
           darker = true, -- darker colors for diagnostic
           undercurl = true, -- use undercurl instead of underline for diagnostics
           background = false, -- use background color for virtual text
         },
       }
-      require('onedark').load()
+      -- require('onedark').load()
     end,
     -- config = function()
     --   require('onedark').setup {
@@ -29,12 +34,13 @@ return {
   },
   {
     'rockyzhang24/arctic.nvim',
+    branch = 'v2',
     enabled = true,
     dependencies = { 'rktjmp/lush.nvim' },
     name = 'arctic',
     priority = 1000,
     config = function()
-      -- vim.cmd.colorscheme 'arctic'
+      vim.cmd.colorscheme 'arctic'
     end,
   },
   { -- You can easily change to a different colorscheme.
