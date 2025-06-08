@@ -17,6 +17,7 @@ fi
 
 selected=$(echo $selected_pretty | sed "s|^~/|/Users/$USER/|")
 selected_name=$(basename "$selected" | tr . _)
+
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]]; then
@@ -49,6 +50,6 @@ if [[ $1 == "-S" ]]; then
 else
 	tmux switch-client -t $selected_name
 
-	tmux has-session -t "SESSIONIZER" 2> /dev/null || tmux new-session -ds "SESSIONIZER" && tmux send-keys -t "SESSIONIZER" "ts -S" C-m
+	# tmux has-session -t "SESSIONIZER" 2> /dev/null || tmux new-session -ds "SESSIONIZER" && tmux send-keys -t "SESSIONIZER" "ts -S" C-m
 fi
 

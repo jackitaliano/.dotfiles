@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+search_dir="~/projects"
+
+find_session() {
+    dirs=$(echo $TMUX_PATH | tr ':' '\n' | xargs -I {} sh -c 'find "{}" -maxdepth 1 -mindepth 1 \( -name ".*" -o -name "node_modules" \) -prune -o -type d -print')
+    current_path=$1
+
+    while true; do
+        session_path=$(printf "$dirs" | grep "$current_path")
+
+        if [ -n "$session_path" ]; then
+            break
+        fi
+
+        current_path="${current_path%?}"
+
+        if [[ -z $current_path ]]; then
+            return 0
+        fi
+    done
+
+    session_name=$(basename "$session_path" | tr . _)
+    echo $session_name $session_path
+}
+
+open_session() {
+    session_name=$1
+    session=$2
+    rel_path=$3
+    line=$4
+
+    tmux_running=$(pgrep tmux)
+
+    if [[ -z $TMUX ]]; then
+        if [[ -z $tmux_running ]]; then
+            tmux new-session -s $session_name -c $session \; attach -t $session_name \; new-window -n result "cd $session && nvim $rel_path +$line"
+
+        elif tmux has-session -t=$session_name 2> /dev/null; then
+            tmux attach -t $session_name \; new-window -n result "cd $session && nvim $rel_path +$line"
+
+        elif ! tmux has-session -t=$session_name 2> /dev/null; then
+            tmux new -s $session_name -c $session \; new-window -n result "cd $session && nvim $rel_path +$line"
+        fi
+
+        exit 0
+    fi
+
+    echo "sess: '$session'"
+    echo "name: '$session_name'"
+    echo "relpath: '$rel_path'"
+    echo "line: '$line'"
+
+
+    if ! tmux has-session -t=$session_name 2> /dev/null; then
+        echo "! tmux"
+        tmux new-session -ds $session_name -c $session \; new-window -n result "cd $session && nvim $rel_path +$line"
+    fi
+
+    echo "has session, switching"
+    tmux switch-client -t $session_name \; new-window -n result \; send-keys "cd $session && nvim $rel_path +$line" C-m
+}
+
+perform_search() {
+    RELOAD_RG="rg --column --color=always --smart-case {q} $search_dir || :"
+
+    result=$(fzf --disabled --ansi \
+        --bind "start:reload:$RELOAD_RG" --bind "change:reload:$RELOAD_RG" \
+        --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(2. fzf > )+enable-search+clear-query+rebind(ctrl-r)" \
+        --bind "ctrl-r:unbind(change,ctrl-r)+change-prompt(1. rg > )+disable-search+reload($RELOAD_RG)+rebind(ctrl-f)" \
+        --delimiter : \
+        --preview 'bat --style=full --color=always --theme=OneHalfDark --highlight-line {2} {1}' \
+        --height=100% --padding=2 --border=double --prompt='1. rg > ' --pointer='>' --preview-label='( File )' --header='RG Finder' --header-first --color='fg:magenta' \
+        --preview-window '~4,+{2}+4/3,<80(up)')
+
+    if [ -z "$result" ]; then
+        exit 0
+    fi
+
+    # path_line=$(echo $result | awk -F ':' '{print $1, $2}')
+    path=$(echo $result | awk -F ':' '{print $1}')
+    line=$(echo $result | awk -F ':' '{print $2}')
+
+
+    session=$(find_session $path)
+
+    if [ -z "$session" ]; then
+        echo "No session found for $path"
+        exit 1
+    fi
+
+    session_name=$(echo $session | awk -F ' ' '{print $1}')
+    session_path=$(echo $session | awk -F ' ' '{print $2}')
+
+    len=$((${#session_path} + 1))
+    rel_path=${path:len}
+
+    open_session $session_name $session_path $rel_path $line
+}
+
+perform_search
