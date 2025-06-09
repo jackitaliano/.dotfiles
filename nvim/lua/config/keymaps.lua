@@ -109,11 +109,6 @@ map('n', '[w', diagnostic_goto(false, 'WARN'), 'Prev Warning')
 map('t', '<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
 
 -------------------------------------
--- Code Actions
--------------------------------------
-map_code('n', 'a', vim.lsp.buf.code_action, '[A]ction')
-
--------------------------------------
 -- QOL
 -------------------------------------
 

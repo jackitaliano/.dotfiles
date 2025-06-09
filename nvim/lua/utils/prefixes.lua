@@ -37,6 +37,14 @@ local M = {
     name = 'Code Actions',
     keys = leader .. 'c',
   },
+  buffer = {
+    name = 'Buffer',
+    keys = leader .. 'b',
+  },
+  tabs = {
+    name = 'Tabs',
+    keys = leader .. '\t',
+  },
 }
 
 return M
