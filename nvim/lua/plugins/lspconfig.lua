@@ -1,3 +1,4 @@
+local git_url_template = os.getenv 'LAZY_GIT_TEMPLATE'
 -- LSP Plugins
 return {
   {
@@ -196,7 +197,8 @@ return {
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
+        terraformls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -240,6 +242,13 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
+      require('mason').setup {
+        log_level = vim.log.levels.DEBUG,
+        github = {
+          download_url_template = git_url_template,
+        },
+      }
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
