@@ -33,7 +33,7 @@ abbr -a gps git push
 abbr -a gp git pull
 abbr -a gaa git add --all
 abbr -a gwa 'git worktree add "../link_$(pwd | cut -d"/" -f5-)"'
-abbr -a gwa 'git worktree remove "../link_$(pwd | cut -d"/" -f5-)"'
+abbr -a gwr 'git worktree remove "../link_$(pwd | cut -d"/" -f5-)"'
 abbr -a gwn 'cd "../link_$(pwd | cut -d"/" -f5-)" && nvim'
 
 # other
