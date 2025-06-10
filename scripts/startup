@@ -1,0 +1,2 @@
+yabai --start-service
+skhd & && disown $(pgrep skhd)

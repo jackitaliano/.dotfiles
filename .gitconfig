@@ -5,7 +5,16 @@
 	defaultBranch = main
 [core]
 	editor = nvim
-[web]
-	browser = arc
+	pager = delta
 [color]
 	ui = auto
+[web]
+	browser = 'Microsoft Edge'
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	dark = true
+	syntax-theme = OneHalfDark
+[merg]
+	conflictstyle = zdiff3

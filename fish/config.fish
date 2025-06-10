@@ -1,31 +1,24 @@
-if test -e "$HOME/.config/fish/.env"
-    source ~/.config/fish/.env
-else
-    echo "no .env loaded"
-end
-if test -e "$HOME/.keys"
-    source ~/.keys
-else
-    echo "no .keys loaded"
-end
+test -e "$HOME/.config/fish/.env";
+    and source ~/.config/fish/.env
+
+test -e "$HOME/.keys";
+    and source ~/.keys
+
+
+set -x TMUX_PATH (cat $HOME/.config/fish/.tmux_path)
+set -x PATH "/opt/homebrew/bin:$HOME/bin/:$PATH"
+set -x HOMEBREW_NO_ANALYTICS 1
 
 source ~/.config/fish/functions/abbr.fish
-#source ~/.config/fish/functions/zoxide.fish
 source ~/.dotfiles/scripts/source_funcs.fish
-source ~/.dotfiles/scripts/add_tmux_path.fish
-source ~/.dotfiles/scripts/git.fish
 
 set -U fish_history_max_entries 5000
 
-set localBinScripts "$HOME/.local/bin/scripts"
-set localBin "$HOME/.local/bin"
-set brewBin /opt/homebrew/bin
-set -U projectPaths "$HOME/projects"
+set -l localBinScripts "$HOME/.local/bin/scripts"
+set -l localBin "$HOME/.local/bin"
+set -l brewBin /opt/homebrew/bin
+set -l projectPaths "$HOME/projects"
 
 contains $localBin $fish_user_paths; or fish_add_path $localBin
 contains $localBinScripts $fish_user_paths; or fish_add_path $localBinScripts
 contains $brewBin $fish_user_paths; or fish_add_path $brewBin
-
-export TMUX_PATH="$(cat $HOME/.config/fish/.tmux_path)"
-export PATH="/opt/homebrew/bin:$HOME/bin/:$PATH"
-export HOMEBREW_NO_ANALYTICS=1

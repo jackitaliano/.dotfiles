@@ -1,10 +1,3 @@
--- NOTE: Plugins can specify dependencies.
---
--- The dependencies are proper plugin specifications as well - anything
--- you do for a plugin at the top level, you can do for a dependency.
---
--- Use the `dependencies` key to specify the dependencies of a particular plugin
-
 local prefixes = require 'utils.prefixes'
 local utils = require 'utils.common'
 
@@ -18,15 +11,9 @@ return {
     event = 'VimEnter',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { -- If encountering errors, see telescope-fzf-native README for installation instructions
+      {
         'nvim-telescope/telescope-fzf-native.nvim',
-
-        -- `build` is used to run some command when the plugin is installed/updated.
-        -- This is only run then, not every time Neovim starts up.
         build = 'make',
-
-        -- `cond` is a condition used to determine whether this plugin should be
-        -- installed and loaded.
         cond = function()
           return vim.fn.executable 'make' == 1
         end,
@@ -127,27 +114,17 @@ return {
       search_map('n', 'k', drop(builtin.keymaps), '[S]earch [K]eymaps')
       search_map('n', 'w', ivy(builtin.grep_string), '[S]earch current [W]ord')
       search_map('n', 'g', ivy(builtin.live_grep), '[S]earch by [G]rep')
-      search_map('n', 's', ivy(builtin.lsp_document_symbols), '[S]earch Document [s]ymbols')
-      search_map('n', 'S', ivy(builtin.lsp_workspace_symbols), '[S]earch Workspace [S]symbols')
       search_map('n', 'd', ivy(builtin.diagnostics), '[S]earch [D]iagnostics')
       search_map('n', 'R', drop(builtin.registers), '[S]earch [R]egisters')
       search_map('n', 'm', ivy(builtin.marks), '[S]earch [M]arks')
       search_map('n', 'C', ivy(builtin.commands), '[S]earch [C]ommands')
-      search_map('n', 't', '<cmd>TodoTelescope keywords=TODO<CR>', '[S]earch [T]odo')
-      search_map('n', 'T', '<cmd>TodoTelescope keywords=FIX<CR>', '[S]earch [T]odo')
+      search_map('n', 't', ivy(builtin.grep_string, { search = 'TODO:' }), '[S]earch [T]odo')
+      search_map('n', 'T', ivy(builtin.grep_string, { search = 'FIX:' }), '[S]earch [T]odo Fix')
       search_map('n', '/', ivy(builtin.live_grep, { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }), '[S]earch [/] in Open Files')
 
-      find_map('n', 'f', drop(builtin.find_files), '[S]earch [f]iles')
-      find_map('n', 'F', ivy(builtin.find_files), '[S]earch [F]iles')
+      find_map('n', 'f', drop(builtin.find_files, { hidden = true }), '[S]earch [f]iles')
+      find_map('n', 'F', ivy(builtin.find_files, { hidden = true }), '[S]earch [F]iles')
       find_map('n', '.', ivy(builtin.oldfiles), '[S]earch Recent Files ("." for repeat)')
-
-      -- git_map('n', 'c', ivy(builtin.git_bcommits), '[G]it [C]ommits')
-      -- git_map(
-      --   'n',
-      --   'b',
-      --   ivy(builtin.git_bcommits_range, { git_command = { 'git', 'log', '--pretty=format:%h %an %m %s', '--abbrev-commit', '--no-patch', '-L' } }),
-      --   '[G]it [B]lame'
-      -- )
 
       map('n', '<leader><leader>', drop(builtin.buffers), '[ ] Find existing buffers')
 
