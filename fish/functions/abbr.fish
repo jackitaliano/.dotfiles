@@ -36,6 +36,8 @@ abbr -a gwa 'git worktree add "../link_$(pwd | cut -d"/" -f5-)"'
 abbr -a gwr 'git worktree remove "../link_$(pwd | cut -d"/" -f5-)"'
 abbr -a gwn 'cd "../link_$(pwd | cut -d"/" -f5-)" && nvim'
 
+abbr -a lg lazygit
+
 # other
 abbr -a pb pbcopy
 #abbr -a findh find ~ \\\( -path ~/Library -o -path ~/Desktop -o -path ~/.cups -o -path ~/.Trash \\\) -prune -o
