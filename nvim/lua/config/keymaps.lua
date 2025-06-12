@@ -32,6 +32,14 @@ end, 'Line Num')
 
 map_ui('n', 'R', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', 'Redraw / Clear hlsearch / Diff Update')
 
+map_ui('n', 'c', function()
+  if vim.opt.conceallevel == 2 then
+    vim.opt.conceallevel = 1
+  else
+    vim.opt.conceallevel = 2
+  end
+end, 'Conceal')
+
 -------------------------------------
 -- Windows
 -------------------------------------

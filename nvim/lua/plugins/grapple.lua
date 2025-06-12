@@ -11,6 +11,16 @@ return {
     local grapple = require 'grapple'
     grapple.setup(opts)
 
+    vim.keymap.set('n', ';;', grapple.toggle, { desc = 'Tag File' })
+    vim.keymap.set('n', ';m', grapple.toggle_tags, { desc = 'Toggle Menu' })
+    vim.keymap.set('n', ';r', grapple.reset, { desc = 'Reset Tags' })
+    vim.keymap.set('n', ';i', function()
+      grapple.cycle_tags 'forward'
+    end, { desc = 'Cycle Forward' })
+    vim.keymap.set('n', ';o', function()
+      grapple.cycle_tags 'backward'
+    end, { desc = 'Cycle Backward' })
+
     local map = function(key, index)
       vim.keymap.set('n', ';' .. key, function()
         if not grapple.exists { index = index } then
@@ -20,9 +30,6 @@ return {
         grapple.select { index = index }
       end, { desc = 'Grapple' .. index })
     end
-
-    vim.keymap.set('n', ';;', grapple.toggle, { desc = 'Tag File' })
-    vim.keymap.set('n', ';m', grapple.toggle_tags, { desc = 'Toggle Menu' })
 
     map('h', 1)
     map('j', 2)

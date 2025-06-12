@@ -12,7 +12,7 @@ status is-interactive || exit 0
 contains $brewBin $fish_user_paths; or fish_add_path /opt/homebrew/bin
 set -x HOMEBREW_NO_ANALYTICS 1
 
-source ./functions/abbr.fish
-source ~/.dotfiles/scripts/source_funcs.fish
+source $HOME/.config/fish/functions/abbr.fish
+source $HOME/.local/bin/scripts/source_funcs.fish
 
 #source ./functions/pyenv.fish
