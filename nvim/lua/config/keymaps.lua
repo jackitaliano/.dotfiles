@@ -50,8 +50,8 @@ map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', 'Increase Window Width')
 -- Buffers
 -------------------------------------
 
-map('n', '<S-h>', vim.cmd.bprevious, 'Prev Buffer')
-map('n', '<S-l>', vim.cmd.bnext, 'Next Buffer')
+-- map('n', '<S-h>', vim.cmd.bprevious, 'Prev Buffer')
+-- map('n', '<S-l>', vim.cmd.bnext, 'Next Buffer')
 map_l('n', 'bb', '<cmd>e #<cr>', 'Switch to Other Buffer')
 map_l('n', '`', '<cmd>e #<cr>', 'Switch to Other Buffer')
 map_l('n', 'bd', vim.cmd.bdelete, 'Delete Buffer')

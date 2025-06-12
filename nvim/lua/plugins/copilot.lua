@@ -3,7 +3,6 @@ local keymap = vim.keymap
 return {
   {
     'github/copilot.vim',
-    lazy = false,
     config = function()
       keymap.set('n', '<leader>cp', '<cmd>Copilot panel<cr>', { noremap = true, silent = true })
       vim.g.copilot_no_tab_map = true

@@ -1,9 +1,6 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  -- opts = {
-  --   theme = 'onedark',
-  -- },
   opts = {
     theme = 'onedark',
     options = {
@@ -27,16 +24,16 @@ return {
     },
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { 'branch', 'diff', 'diagnostics' },
-      lualine_c = { 'filename', 'searchcount', 'selectioncount' },
-      lualine_x = { 'encoding', 'fileformat', 'filetype' },
+      lualine_b = { 'filename', 'branch' },
+      lualine_c = { 'grapple' },
+      lualine_x = { 'searchcount', 'selectioncount', 'diff', 'diagnostics', 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' },
     },
     inactive_sections = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = { 'filename' },
+      -- lualine_c = { 'filename' },
       lualine_x = { 'location' },
       lualine_y = {},
       lualine_z = {},

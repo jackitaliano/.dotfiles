@@ -2,26 +2,7 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 vim.cmd [[ let g:neo_tree_remove_legacy_commands = 1 ]]
 
-local minifiles_toggle = function(...)
-  if not MiniFiles.close() then
-    MiniFiles.open(...)
-  end
-end
-
 return {
-  {
-
-    'echasnovski/mini.files',
-    opts = {
-      windows = {
-        preview = true,
-        width_focus = 35,
-      },
-    },
-    keys = {
-      { '<leader>e', minifiles_toggle, desc = '[e]xplore' },
-    },
-  },
   {
     'nvim-neo-tree/neo-tree.nvim',
     version = '*',
