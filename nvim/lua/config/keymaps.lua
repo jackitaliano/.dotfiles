@@ -33,12 +33,22 @@ end, 'Line Num')
 map_ui('n', 'R', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', 'Redraw / Clear hlsearch / Diff Update')
 
 map_ui('n', 'c', function()
-  if vim.opt.conceallevel == 2 then
-    vim.opt.conceallevel = 1
+  if vim.o.conceallevel == 2 then
+    vim.o.conceallevel = 1
   else
-    vim.opt.conceallevel = 2
+    vim.o.conceallevel = 2
   end
+  vim.notify('conceallevel=' .. vim.o.conceallevel, vim.log.levels.INFO)
 end, 'Conceal')
+
+map_ui('n', 'C', function()
+  if vim.wo.conceallevel == 2 then
+    vim.wo.conceallevel = 1
+  else
+    vim.wo.conceallevel = 2
+  end
+  vim.notify('conceallevel=' .. vim.wo.conceallevel, vim.log.levels.INFO)
+end, 'Local Conceal')
 
 -------------------------------------
 -- Windows
@@ -86,7 +96,7 @@ map_l('n', '<tab>[', '<cmd>tabprevious<cr>', 'Previous Tab')
 
 -- map('n', '<C-p>', vim.cmd.cprev, 'Previous Quickfix')
 -- map('n', '<C-n>', vim.cmd.cnext, 'Next Quickfix')
--- map('n', '<C-q>', vim.cmd.copen, 'Open diagnostic [Q]uickfix list')
+-- map('n', '<C-q>', vim.cmd.copen, 'Open diagnostic Quickfix list')
 
 -- Diagnostic keymaps
 

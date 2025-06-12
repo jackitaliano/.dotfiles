@@ -6,7 +6,7 @@ local opt = vim.opt
 opt.relativenumber = false
 opt.number = true
 vim.o.laststatus = 3
-opt.conceallevel = 1
+opt.conceallevel = 2
 
 -- don't show mode since in statusline
 opt.showmode = false

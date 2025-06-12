@@ -27,11 +27,7 @@ return {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        defaults = {
-          mappings = {
-            i = { ['<c-f>'] = 'to_fuzzy_refine' },
-          },
-        },
+        defaults = require('telescope.themes').get_ivy { winblend = 10, previewer = true },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -97,38 +93,33 @@ return {
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
 
-      local search_map = utils.get_prefix_map(search_prefix)
-      local find_map = utils.get_prefix_map(find_prefix)
-      local git_map = utils.get_prefix_map(git_prefix)
-      local map = utils.get_prefix_map ''
+      local nmap = utils.get_mode_map('n', {})
 
       if ags_success then
         local ags = require('telescope').extensions.advanced_git_search
-        git_map('n', 's', ags.search_log_content_file, '')
-        git_map('n', 'f', ags.diff_commit_file, '[F]ile Commit Hist')
-        git_map('n', 'b', ags.diff_commit_line, '[B]lame')
+        nmap('<leader>gs', ags.search_log_content_file, '')
+        nmap('<leader>gf', ags.diff_commit_file, 'File Commit Hist')
+        nmap('<leader>gb', ags.diff_commit_line, 'Blame')
       end
 
-      search_map('n', 'r', builtin.resume, '[S]earch [R]esume')
-      search_map('n', 'h', drop(builtin.help_tags), '[S]earch [H]elp')
-      search_map('n', 'k', drop(builtin.keymaps), '[S]earch [K]eymaps')
-      search_map('n', 'w', ivy(builtin.grep_string), '[S]earch current [W]ord')
-      search_map('n', 'g', ivy(builtin.live_grep), '[S]earch by [G]rep')
-      search_map('n', 'd', ivy(builtin.diagnostics), '[S]earch [D]iagnostics')
-      search_map('n', 'R', drop(builtin.registers), '[S]earch [R]egisters')
-      search_map('n', 'm', ivy(builtin.marks), '[S]earch [M]arks')
-      search_map('n', 'C', ivy(builtin.commands), '[S]earch [C]ommands')
-      search_map('n', 't', ivy(builtin.grep_string, { search = 'TODO:' }), '[S]earch [T]odo')
-      search_map('n', 'T', ivy(builtin.grep_string, { search = 'FIX:' }), '[S]earch [T]odo Fix')
-      search_map('n', '/', ivy(builtin.live_grep, { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }), '[S]earch [/] in Open Files')
+      nmap('<leader>sr', builtin.resume, 'Resume')
+      nmap('<leader>sh', drop(builtin.help_tags), 'Help')
+      nmap('<leader>sk', drop(builtin.keymaps), 'Keymaps')
+      nmap('<leader>sw', ivy(builtin.grep_string), 'current Word')
+      nmap('<leader>sg', ivy(builtin.live_grep), 'Grep')
+      nmap('<leader>sd', ivy(builtin.diagnostics), 'Diagnostics')
+      nmap('<leader>sR', drop(builtin.registers), 'Registers')
+      nmap('<leader>sm', ivy(builtin.marks), 'Marks')
+      nmap('<leader>sC', ivy(builtin.commands), 'Commands')
+      nmap('<leader>st', ivy(builtin.grep_string, { search = 'TODO:' }), 'Todo')
+      nmap('<leader>sT', ivy(builtin.grep_string, { search = 'FIX:' }), 'Todo Fix')
+      nmap('<leader>s/', ivy(builtin.live_grep, { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }), 'Grep Buffers')
+      nmap('<leader>sf', drop(builtin.find_files, { hidden = true }), 'files')
+      nmap('<leader>sF', ivy(builtin.find_files, { hidden = true }), 'Files')
+      nmap('<leader>s.', ivy(builtin.oldfiles), 'Recent Files ("." for repeat)')
 
-      find_map('n', 'f', drop(builtin.find_files, { hidden = true }), '[S]earch [f]iles')
-      find_map('n', 'F', ivy(builtin.find_files, { hidden = true }), '[S]earch [F]iles')
-      find_map('n', '.', ivy(builtin.oldfiles), '[S]earch Recent Files ("." for repeat)')
-
-      map('n', '<leader><leader>', drop(builtin.buffers), '[ ] Find existing buffers')
-
-      map('n', '<leader>/', drop(builtin.current_buffer_fuzzy_find), '[/] Fuzzily search in current buffer')
+      nmap('<leader><leader>', drop(builtin.buffers), 'Find Buffers')
+      nmap('<leader>/', drop(builtin.current_buffer_fuzzy_find), 'Fuzzy Buffer')
     end,
   },
   {

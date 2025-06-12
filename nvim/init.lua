@@ -20,6 +20,13 @@
 
 --]]
 
+if not vim.fs.abspath then
+  vim.fs.abspath = function(path)
+    -- try the new name, then fallback to vim.loop.fs_realpath
+    return (vim.fs.realpath and vim.fs.realpath(path)) or vim.loop.fs_realpath(path)
+  end
+end
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 

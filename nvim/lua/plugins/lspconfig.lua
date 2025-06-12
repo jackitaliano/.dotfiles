@@ -136,22 +136,22 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('<leader>r', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>r', vim.lsp.buf.rename, 'Rename')
 
-          map('<leader>ca', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('<leader>ca', vim.lsp.buf.code_action, 'Goto Code Action', { 'n', 'x' })
 
-          map('gr', ivy(builtin.lsp_references), '[G]oto [R]eferences')
+          map('gr', ivy(builtin.lsp_references), 'Goto References')
 
-          map('gI', ivy(builtin.lsp_implementations), '[G]oto [I]mplementation')
+          map('gI', ivy(builtin.lsp_implementations), 'Goto Implementation')
 
-          map('gd', ivy(builtin.lsp_definitions), '[G]oto [D]efinition')
+          map('gd', ivy(builtin.lsp_definitions), 'Goto Definition')
 
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
-          map('<leader>ss', ivy(builtin.lsp_document_symbols), '[S]earch Document [s]ymbols')
-          map('<leader>sS', ivy(builtin.lsp_dynamic_workspace_symbols), '[S]earch Workspace [S]symbols')
+          map('<leader>ss', ivy(builtin.lsp_document_symbols), 'Search Document symbols')
+          map('<leader>sS', ivy(builtin.lsp_dynamic_workspace_symbols), 'Search Workspace Ssymbols')
 
-          map('gt', ivy(builtin.lsp_type_definitions), '[G]oto [T]ype Definition')
+          map('gt', ivy(builtin.lsp_type_definitions), 'Goto Type Definition')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -193,7 +193,7 @@ return {
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map('<leader>uh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, 'Toggle Inlay Hints')
           end
         end,
       })

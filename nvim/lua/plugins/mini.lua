@@ -15,7 +15,7 @@ return {
       },
     },
     keys = {
-      { '<leader>e', minifiles_toggle, desc = '[e]xplore' },
+      { '<leader>e', minifiles_toggle, desc = 'explore' },
     },
   },
   {

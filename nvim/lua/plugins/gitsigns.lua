@@ -55,7 +55,7 @@ return {
           else
             gitsigns.nav_hunk 'next'
           end
-        end, 'Jump to next git [c]hange')
+        end, 'Jump to next git change')
 
         map('n', '[h', function()
           if vim.wo.diff then
@@ -63,33 +63,33 @@ return {
           else
             gitsigns.nav_hunk 'prev'
           end
-        end, 'Jump to previous git [c]hange')
+        end, 'Jump to previous git change')
 
         -- Actions
         -- visual mode
         hunk_map('v', 's', function()
           gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, 'git [s]tage hunk')
+        end, 'git stage hunk')
         hunk_map('v', 'r', function()
           gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, 'git [r]eset hunk')
+        end, 'git reset hunk')
 
-        hunk_map('n', 'd', gitsigns.preview_hunk_inline, '[T]oggle git show [D]eleted')
+        hunk_map('n', 'd', gitsigns.preview_hunk_inline, 'Toggle git show Deleted')
 
         -- normal mode
-        git_map('n', 's', gitsigns.stage_hunk, 'git [s]tage hunk')
-        git_map('n', 'r', gitsigns.reset_hunk, 'git [r]eset hunk')
-        git_map('n', 'S', gitsigns.stage_buffer, 'git [S]tage buffer')
-        git_map('n', 'u', gitsigns.stage_hunk, 'git [u]ndo stage hunk')
-        git_map('n', 'R', gitsigns.reset_buffer, 'git [R]eset buffer')
-        git_map('n', 'p', gitsigns.preview_hunk, 'git [p]review hunk')
-        -- git_map('n', 'b', gitsigns.blame_line, 'git [b]lame line')
-        git_map('n', 'd', gitsigns.diffthis, 'git [d]iff against index')
+        git_map('n', 's', gitsigns.stage_hunk, 'git stage hunk')
+        git_map('n', 'r', gitsigns.reset_hunk, 'git reset hunk')
+        git_map('n', 'S', gitsigns.stage_buffer, 'git Stage buffer')
+        git_map('n', 'u', gitsigns.stage_hunk, 'git undo stage hunk')
+        git_map('n', 'R', gitsigns.reset_buffer, 'git Reset buffer')
+        git_map('n', 'p', gitsigns.preview_hunk, 'git preview hunk')
+        -- git_map('n', 'b', gitsigns.blame_line, 'git blame line')
+        git_map('n', 'd', gitsigns.diffthis, 'git diff against index')
         git_map('n', 'D', function()
           gitsigns.diffthis '@'
-        end, 'git [D]iff against last commit')
+        end, 'git Diff against last commit')
         -- Toggles
-        git_ui_map('n', 'b', gitsigns.toggle_current_line_blame, 'Toggle [B]lame')
+        git_ui_map('n', 'b', gitsigns.toggle_current_line_blame, 'Toggle Blame')
       end,
     },
   },

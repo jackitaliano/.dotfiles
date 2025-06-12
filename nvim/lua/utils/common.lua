@@ -19,6 +19,26 @@ function M.get_prefix_map(prefix, default_opts)
   end
 end
 
+---@param default_mode string|string[]
+---@param default_opts? vim.keymap.set.Opts
+function M.get_mode_map(default_mode, default_opts)
+  ---@param lhs string           Left-hand side |{lhs}| of the mapping.
+  ---@param rhs string|function  Right-hand side |{rhs}| of the mapping, can be a Lua function.
+  ---
+  ---@param opts? vim.keymap.set.Opts
+  ---@param mode? string|string[] Mode short-name, see |nvim_set_keymap()|.
+  return function(lhs, rhs, desc, opts, mode)
+    opts = opts or {}
+    if default_opts then
+      opts = vim.tbl_deep_extend('force', {}, opts, default_opts or {})
+    end
+
+    mode = mode or default_mode
+
+    M.map(mode, lhs, rhs, desc, opts)
+  end
+end
+
 ---@param mode string|string[] Mode short-name, see |nvim_set_keymap()|.
 ---                            Can also be list of modes to create mapping on multiple modes.
 ---@param lhs string           Left-hand side |{lhs}| of the mapping.
