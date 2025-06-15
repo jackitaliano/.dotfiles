@@ -129,6 +129,15 @@ map('t', '<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
 -------------------------------------
 -- QOL
 -------------------------------------
+-- Lazy
+
+map('n', '<leader>ll', '<cmd>Lazy<cr>', 'Lazy')
+map('n', '<leader>ltp', function()
+  vim.ui.input({ prompt = 'Plugin Name: ' }, utils.toggle_plugin)
+end, 'Toggle Plugin')
+map('n', '<leader>ltb', function()
+  utils.toggle_plugin 'bufferline.nvim'
+end, 'Toggle Plugin')
 
 -- Persist visual select for indenting
 map('v', '>', '>gv')

@@ -1,8 +1,11 @@
 local keymap = vim.keymap
 
+local COPILOT_ENABLED = os.getenv 'COPILOT_ENABLED' or 'False' == 'True'
+
 return {
   {
     'github/copilot.vim',
+    enabled = COPILOT_ENABLED,
     config = function()
       keymap.set('n', '<leader>cp', '<cmd>Copilot panel<cr>', { noremap = true, silent = true })
       vim.g.copilot_no_tab_map = true
@@ -13,7 +16,7 @@ return {
   },
   {
     'olimorris/codecompanion.nvim',
-
+    enabled = COPILOT_ENABLED,
     config = function()
       require('codecompanion').setup()
       keymap.set('n', '<leader>cc', '<cmd>CodeCompanionChat<cr>', { noremap = true, silent = true })

@@ -1,5 +1,21 @@
 local M = {}
 
+function M.toggle_plugin(plugin_name)
+  local plugins = require('lazy.core.config').plugins
+  vim.notify(vim.inspect(plugins))
+  local plugin = plugins[plugin_name]
+  if plugin then
+    -- Toggle the `enabled` flag
+    plugin.enabled = not plugin.enabled
+    -- Notify user
+    vim.notify(plugin_name .. ' enabled = ' .. tostring(plugin.enabled))
+    -- Reload Lazy to apply changes
+    require('lazy.core.loader').reload()
+  else
+    vim.notify('Plugin ' .. plugin_name .. ' not found!', vim.log.levels.ERROR)
+  end
+end
+
 ---@param prefix string
 ---@param default_opts? vim.keymap.set.Opts
 function M.get_prefix_map(prefix, default_opts)

@@ -5,7 +5,7 @@ return {
       scope = 'git',
       icons = true,
       status = true,
-      quick_select = 'hjkl',
+      quick_select = 'hjklasdf',
     }
 
     local grapple = require 'grapple'

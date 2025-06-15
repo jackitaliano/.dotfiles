@@ -1,6 +1,6 @@
-local minifiles_toggle = function(...)
+local minifiles_toggle = function()
   if not MiniFiles.close() then
-    MiniFiles.open(...)
+    MiniFiles.open(vim.api.nvim_buf_get_name(0))
   end
 end
 
@@ -10,8 +10,9 @@ return {
     'echasnovski/mini.files',
     opts = {
       windows = {
-        preview = true,
-        width_focus = 35,
+        preview = false,
+        width_focus = 20,
+        max_number = 3,
       },
     },
     keys = {
