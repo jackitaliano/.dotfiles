@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-insert="~/notes"
+insert="~/notes\n~/projects\n~/.dotfiles"
 
 dirs=$(echo $TMUX_PATH | tr ':' '\n' | xargs -I {} sh -c 'find "{}" -maxdepth 1 -mindepth 1 \( -name ".*" -o -name "node_modules" \) -prune -o -type d -print')
 pretty=$(echo "$dirs\n$insert" | sed "s|^/Users/$USER/|~/|")
