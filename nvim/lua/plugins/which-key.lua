@@ -72,6 +72,8 @@ return {
         { '<leader>b', group = 'Buffers' },
         { '<leader><TAB>', group = 'Tabs' },
         { '<leader>o', group = 'Obsidian', icon = '' },
+        { '<leader>om', group = 'Move' },
+        { '<leader>ot', group = 'Templates' },
         { '<leader>so', group = 'Obsidian', icon = '' },
         { '<leader>t', group = 'Test', icon = '' },
       },

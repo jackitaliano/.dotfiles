@@ -44,7 +44,7 @@ alt - o : open -a "Microsoft Outlook"
 alt - t : open -a "Microsoft Teams"
 alt - n : open -a "Microsoft OneNote"
 alt - s : open -a "Spotify"
-# alt + shfit - return : open -a "Alacritty"; tmux switch-client -t notes || tmux attach -t notes || tmux new -d -s notes -c "$HOME/notes" && tmux switch-client -t notes
+alt + shfit - return : open -a "Alacritty"; tmux switch-client -t notes || tmux attach -t notes || tmux new -d -s notes -c "$HOME/notes" && tmux switch-client -t notes
 # alt - r : shortcuts run "Open Reminders"
 
 # Shortcuts

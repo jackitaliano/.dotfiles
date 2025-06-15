@@ -1,3 +1,85 @@
+---@param prompt string
+---@return function: string
+local function get_input(prompt)
+  ---@return string
+  return function()
+    local str = nil
+    vim.ui.input({ prompt = prompt }, function(input)
+      str = input
+    end)
+
+    return str or ''
+  end
+end
+
+---@enum NotesDir
+local NotesDir = {
+  root = vim.fn.expand '$HOME/notes',
+  scratch = 'scratch',
+  daily = 'daily',
+  story = 'story',
+  meeting = 'meeting',
+}
+
+---@class Template
+---@field name string
+---@field dir NotesDir
+---@field tags table[string]
+
+local Templates = {
+  dir = 'templates',
+  daily = {
+    name = 'daily.md',
+    dir = NotesDir.daily,
+    tags = { 'daily' },
+  },
+  story = {
+    name = 'story.md',
+    dir = NotesDir.story,
+    tags = { 'story' },
+  },
+  meeting = {
+    name = 'meeting.md',
+    dir = NotesDir.meeting,
+    tags = { 'meeting' },
+  },
+}
+
+---@param notes_dir NotesDir
+local function move_to(notes_dir)
+  local client = require('obsidian').get_client()
+  local curr = client:current_note()
+
+  if curr and curr.fname() then
+    local new_path = NotesDir.root .. '/' .. notes_dir .. '/' .. curr:fname()
+    local success = os.rename(curr:fname(), new_path)
+
+    if not success then
+      vim.notify('Error moving file.', vim.log.levels.WARN)
+      return
+    end
+    vim.cmd.bdelete()
+    vim.cmd.edit(new_path)
+  end
+end
+
+---@param notes_dir NotesDir
+---@return function
+local function get_move_to(notes_dir)
+  return function()
+    move_to(notes_dir)
+  end
+end
+
+---@param template Template
+local function new_from_in(template)
+  vim.ui.input({ prompt = 'Enter title: ' }, function(title)
+    local client = require('obsidian').get_client()
+    local new_from_template = require 'obsidian.commands.new_from_template'
+    new_from_template(client, { fargs = { title, template.name } })
+  end)
+end
+
 return {
   'obsidian-nvim/obsidian.nvim',
   version = '*',
@@ -10,7 +92,21 @@ return {
     { '<leader>oN', '<cmd>ObsidianNewFromTemplate<cr>', desc = 'New Template' },
     { '<leader>ow', '<cmd>ObsidianWorkspace<cr>', desc = 'Workspace' },
     { '<leader>or', '<cmd>ObsidianRename<cr>', desc = 'Rename' },
-    { '<leader>sod', '<cmd>ObsidianDailies<cr>', desc = 'Dailies' },
+    { '<leader>od', '<cmd>ObsidianDailies<cr>', desc = 'Dailies' },
+    {
+      '<leader>ots',
+      function()
+        new_from_in(Templates.story)
+      end,
+    },
+    {
+      '<leader>otm',
+      function()
+        new_from_in(Templates.meeting)
+      end,
+    },
+    { '<leader>oms', get_move_to(NotesDir.story), desc = 'To Story' },
+    { '<leader>omm', get_move_to(NotesDir.meeting), desc = 'To Meeting' },
     { '<leader>sof', '<cmd>ObsidianQuickSwitch<cr>', desc = 'Files' },
     { '<leader>sos', '<cmd>ObsidianSearch<cr>', desc = 'Search' },
     { '<leader>sot', '<cmd>ObsidianTags<cr>', desc = 'Tags' },
@@ -25,16 +121,16 @@ return {
     workspaces = {
       {
         name = 'notes',
-        path = '~/notes',
+        path = NotesDir.root,
       },
     },
-    notes_subdir = 'scratch',
+    notes_subdir = NotesDir.scratch,
     daily_notes = {
-      folder = 'daily',
+      folder = Templates.daily.dir,
       date_format = '%Y-%m-%d',
       alias_format = '%B %-d, %Y',
-      default_tags = { 'daily-notes' },
-      template = 'daily.md',
+      default_tags = Templates.daily.tags,
+      template = Templates.daily.name,
       workdays_only = true,
     },
     completion = {
@@ -46,10 +142,20 @@ return {
       name = 'telescope.nvim',
     },
     templates = {
-      folder = 'templates',
+      folder = Templates.dir,
       date_format = '%Y-%m-%d',
       time_format = '%H:%M',
-      substitutions = {},
+      substitutions = {
+        day = function()
+          return os.date '%A'
+        end,
+        date_short = function()
+          return os.date '%m-%d-%y'
+        end,
+        date_long = function()
+          return os.date '%B %-d, %Y'
+        end,
+      },
     },
     -- Optional, customize how note IDs are generated given an optional title.
     ---@param title string|?
