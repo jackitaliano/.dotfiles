@@ -11,6 +11,9 @@ local map_code = utils.get_prefix_map(prefixes.code_actions.keys, default_opts)
 -- UI
 -------------------------------------
 
+map_ui('n', 'z', function()
+  Snacks.zen.zoom()
+end, 'Zoom')
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 

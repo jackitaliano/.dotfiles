@@ -74,6 +74,10 @@ end
 ---@param template Template
 local function new_from_in(template)
   vim.ui.input({ prompt = 'Enter title: ' }, function(title)
+    if title == nil then
+      return
+    end
+
     local client = require('obsidian').get_client()
     local new_from_template = require 'obsidian.commands.new_from_template'
     new_from_template(client, { fargs = { title, template.name } })
@@ -139,7 +143,7 @@ return {
     new_notes_location = 'notes_subdir',
     preferred_link_style = 'markdown',
     picker = {
-      name = 'telescope.nvim',
+      name = 'snacks.pick',
     },
     templates = {
       folder = Templates.dir,
