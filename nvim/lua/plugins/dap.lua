@@ -19,12 +19,8 @@ end
 return {
   {
     'mfussenegger/nvim-dap',
-    recommended = true,
-    desc = 'Debugging support. Requires language specific adapters to be configured. (see lang extras)',
-
     dependencies = {
       'rcarriga/nvim-dap-ui',
-      -- virtual text for the debugger
       {
         'theHamsta/nvim-dap-virtual-text',
         opts = {},
@@ -70,15 +66,25 @@ return {
       end
     end,
   },
-
-  -- fancy UI for the debugger
   {
     'rcarriga/nvim-dap-ui',
     dependencies = { 'nvim-neotest/nvim-nio' },
-    -- stylua: ignore
     keys = {
-      { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-      { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+      {
+        '<leader>du',
+        function()
+          require('dapui').toggle {}
+        end,
+        desc = 'Dap UI',
+      },
+      {
+        '<leader>de',
+        function()
+          require('dapui').eval()
+        end,
+        desc = 'Eval',
+        mode = { 'n', 'v' },
+      },
     },
     opts = {},
     config = function(_, opts)
@@ -96,8 +102,6 @@ return {
       end
     end,
   },
-
-  -- mason.nvim integration
   {
     'jay-babu/mason-nvim-dap.nvim',
     dependencies = 'mason.nvim',
@@ -107,8 +111,24 @@ return {
 
       handlers = {},
 
-      ensure_installed = {},
+      ensure_installed = { 'python', 'delve' },
     },
     config = function() end,
   },
+  -- {
+  --   'mfussenegger/nvim-dap-python',
+  --   dependencies = {
+  --     'mfussenegger/nvim-dap',
+  --   },
+  --   config = function()
+  --     require('dap-python').setup()
+  --     table.insert(require('dap').configurations.python, {
+  --       type = 'python',
+  --       request = 'launch',
+  --       name = 'My custom launch configuration',
+  --       program = '${file}',
+  --       -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+  --     })
+  --   end,
+  -- },
 }

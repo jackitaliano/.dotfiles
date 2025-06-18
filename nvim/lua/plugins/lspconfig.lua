@@ -1,9 +1,9 @@
+local pyutils = require 'utils.python'
+
 local git_url_template = os.getenv 'LAZY_GIT_TEMPLATE'
--- LSP Plugins
+
 return {
   {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
     ft = 'lua',
     opts = {
@@ -21,10 +21,7 @@ return {
       { 'williamboman/mason-lspconfig.nvim', version = '^1.0.0' },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim', version = '^1.0.0' },
 
-      -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
     config = function()
@@ -58,14 +55,16 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
-        pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              python_path = pyutils.get_python_path(),
+            },
+          },
+        },
         terraformls = {},
-        -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 
         lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
@@ -79,7 +78,8 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'debugpy',
       })
       require('mason').setup {
         log_level = vim.log.levels.DEBUG,
