@@ -1,58 +1,138 @@
-# change window focus within space
-cmd + alt - j : yabai -m window --focus south
-cmd + alt - k : yabai -m window --focus north
-cmd + alt - h : yabai -m window --focus west
-cmd + alt - l : yabai -m window --focus east
+:: default
+
+########################################
+# Launch Applications
+########################################
+
+:: launch @
+
+alt - space ; launch
+launch < escape ; default
+
+launch < return : open_window "Alacritty"; skhd -k "escape"
+launch < space : open_window "Microsoft Edge"; skhd -k "escape"
+launch < o : open_window "Microsoft Outlook"; skhd -k "escape"
+launch < t : open_window "Discord"; skhd -k "escape"
+launch < n : open_window "Microsoft OneNote"; skhd -k "escape"
+launch < s : open_window "Spotify"; skhd -k "escape"
+launch < d : open -a "Docker Desktop"; skhd -k "escape"
+launch < shift - n : open -a "Alacritty"; tmux switch-client -t notes || tmux attach -t notes || tmux new -d -s notes -c "$HOME/notes" && tmux switch-client -t notes
+
+########################################
+# Focus
+########################################
+
+:: focus @
+
+alt - f ; focus
+focus < escape ; default
+
+# change focus within space
+focus < h : yabai -m window --focus west; skhd -k "escape"
+focus < j : yabai -m window --focus south; skhd -k "escape"
+focus < k : yabai -m window --focus north; skhd -k "escape"
+focus < l : yabai -m window --focus east; skhd -k "escape"
 
 # change focus between external displays (left and right)
-cmd + alt - s : yabai -m display --focus west
-cmd + alt - g : yabai -m display --focus east
+focus < shift - h : yabai -m display --focus west; skhd -k "escape"
+focus < shift - j : yabai -m display --focus south; skhd -k "escape"
+focus < shift - k : yabai -m display --focus north; skhd -k "escape"
+focus < shift - l : yabai -m display --focus east; skhd -k "escape"
+
+# change focus between spaces
+focus < n : yabai -m space --focus next; skhd -k "escape"
+focus < p : yabai -m space --focus prev; skhd -k "escape"
+
+########################################
+# Move
+########################################
+
+:: move @
+
+alt - m ; move
+move < escape ; default
 
 # swap windows
-cmd + ctrl - j : yabai -m window --swap south
-cmd + ctrl - k : yabai -m window --swap north
-cmd + ctrl - h : yabai -m window --swap west
-cmd + ctrl - l : yabai -m window --swap east
+move < j : yabai -m window --swap south; skhd -k "escape"
+move < k : yabai -m window --swap north; skhd -k "escape"
+move < h : yabai -m window --swap west; skhd -k "escape"
+move < l : yabai -m window --swap east; skhd -k "escape"
 
-# maximize window
-cmd + ctrl - return : yabai -m window --toggle zoom-fullscreen
-
-# balance out tree of windows
-cmd + ctrl - e : yabai -m space --balance
+# move windows across displays
+move < shift - h : yabai -m window --display west; yabai -m display --focus west; skhd -k "escape"
+move < shift - j : yabai -m window --display south; yabai -m display --focus south; skhd -k "escape"
+move < shift - k : yabai -m window --display north; yabai -m display --focus north; skhd -k "escape"
+move < shift - l : yabai -m window --display east; yabai -m display --focus east; skhd -k "escape"
 
 # move window to prev and next space
-cmd + ctrl - p : yabai -m window --space prev;
-cmd + ctrl - n : yabai -m window --space next;
+move < p : yabai -m window --space prev; skhd -k "escape"
+move < n : yabai -m window --space next; skhd -k "escape"
 
-# move window to display left and right
-cmd + ctrl - s : yabai -m window --display west; yabai -m display --focus west;
-cmd + ctrl - g : yabai -m window --display east; yabai -m display --focus east;
+move < m : yabai -m window --toggle zoom-fullscreen; skhd -k "escape"
+move < e : yabai -m space --balance; skhd -k "escape"
+move < o : yabai -m space --rotate 90; skhd -k "escape"
 
-# move window to space #
-cmd + ctrl - 1 : yabai -m window --space 1;
-cmd + ctrl - 1 : yabai -m window --space 2;
-cmd + ctrl - 1 : yabai -m window --space 3;
-cmd + ctrl - 1 : yabai -m window --space 4;
-cmd + ctrl - 1 : yabai -m window --space 5;
-cmd + ctrl - 1 : yabai -m window --space 6;
-cmd + ctrl - 1 : yabai -m window --space 7;
-
-# Open Applications
-alt - return : open -a "Alacritty"
-alt - space : open -a "Microsoft Edge"
-alt - o : open -a "Microsoft Outlook"
-alt - t : open -a "Microsoft Teams"
-alt - n : open -a "Microsoft OneNote"
-alt - s : open -a "Spotify"
-alt + shfit - return : open -a "Alacritty"; tmux switch-client -t notes || tmux attach -t notes || tmux new -d -s notes -c "$HOME/notes" && tmux switch-client -t notes
-# alt - r : shortcuts run "Open Reminders"
-
-# Shortcuts
-# alt + shift - r : shortcuts run "Create Reminder"
+# toggles
+move < f : yabai -m window --toggle float; skhd -k "escape"
 
 
-# stop/start/restart yabai
-cmd + ctrl - q : yabai --stop-service
-cmd + ctrl - s : yabai --start-service
-cmd + ctrl - r : yabai --restart-service
+########################################
+# Layout
+########################################
+
+:: layout @
+
+alt - l ; layout
+layout < escape ; default
+
+layout < f : yabai -m config layout float; skhd -k "escape"
+layout < b : yabai -m config layout bsp; skhd -k "escape"
+
+########################################
+# Run
+########################################
+
+:: run @
+
+alt - r ; run
+run < escape ; default
+
+run < s : open "https://google.com/search?query=$(pbpaste)"; skhd -k "escape"
+
+########################################
+# Links
+########################################
+
+:: links @
+
+########################################
+# Config
+########################################
+
+:: config @
+
+alt - c ; config
+config < escape ; default
+
+config < r : skhd -k "escape"; skhd --reload
+
+:: configyabai @
+
+config < y ; configyabai
+configyabai < escape ; default
+
+configyabai < q : yabai --stop-service; skhd -k "escape"
+configyabai < s : yabai --start-service; skhd -k "escape"
+configyabai < r : yabai --restart-service; skhd -k "escape"
+
+:: configdisabled
+
+config < d ; configdisabled
+configdisabled < ctrl + alt + cmd - d ; default
+
+
+########################################
+# layers
+########################################
+
 

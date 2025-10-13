@@ -71,25 +71,27 @@ local function get_move_to(notes_dir)
   end
 end
 
----@param template Template
-local function new_from_in(template)
-  vim.ui.input({ prompt = 'Enter title: ' }, function(title)
-    if title == nil then
-      return
-    end
-
-    local client = require('obsidian').get_client()
-    local new_from_template = require 'obsidian.commands.new_from_template'
-    new_from_template(client, { fargs = { title, template.name } })
-  end)
-end
-
+-- ---@param template Template
+-- local function new_from_in(template)
+--   -- vim.ui.input({ prompt = 'Enter title: ' }, function(title)
+--   --   if title == nil then
+--   --     return
+--   --   end
+--   --
+--   --   local client = require('obsidian').get_client()
+--   --   local new_from_template = require 'obsidian.commands.new_from_template'
+--   --   new_from_template(client, { fargs = { title, template.name } })
+--   -- end)
+-- end
+--
 return {
   'obsidian-nvim/obsidian.nvim',
+  lazy = true,
   version = '*',
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
+  ft = 'markdown',
   keys = {
     { '<leader>oo', '<cmd>Obsidian<cr>', desc = 'Obsidian' },
     { '<leader>on', '<cmd>ObsidianNew<cr>', desc = 'New' },
@@ -97,28 +99,28 @@ return {
     { '<leader>ow', '<cmd>ObsidianWorkspace<cr>', desc = 'Workspace' },
     { '<leader>or', '<cmd>ObsidianRename<cr>', desc = 'Rename' },
     { '<leader>od', '<cmd>ObsidianDailies<cr>', desc = 'Dailies' },
-    {
-      '<leader>ots',
-      function()
-        new_from_in(Templates.story)
-      end,
-    },
-    {
-      '<leader>otm',
-      function()
-        new_from_in(Templates.meeting)
-      end,
-    },
+    -- {
+    --   '<leader>ots',
+    --   function()
+    --     new_from_in(Templates.story)
+    --   end,
+    -- },
+    -- {
+    --   '<leader>otm',
+    --   function()
+    --     new_from_in(Templates.meeting)
+    --   end,
+    -- },
     { '<leader>oms', get_move_to(NotesDir.story), desc = 'To Story' },
     { '<leader>omm', get_move_to(NotesDir.meeting), desc = 'To Meeting' },
     { '<leader>sof', '<cmd>ObsidianQuickSwitch<cr>', desc = 'Files' },
     { '<leader>sos', '<cmd>ObsidianSearch<cr>', desc = 'Search' },
     { '<leader>sot', '<cmd>ObsidianTags<cr>', desc = 'Tags' },
-    { '<leader>sol', '<cmd>ObsidianLinks<cr>', desc = 'Links', ft = 'md' },
-    { '<leader>sob', '<cmd>ObsidianBacklinks<cr>', desc = 'Backlinks', ft = 'md' },
-    { '<leader>soc', '<cmd>ObsidianTOC<cr>', desc = 'TOC', ft = 'md' },
-    { 'gl', '<cmd>ObsidianLink<cr>', desc = 'Obsidian Link', mode = 'v', ft = 'md' },
-    { 'gL', '<cmd>ObsidianLinkNew<cr>', desc = 'Obsidian Link New', mode = 'v', ft = 'md' },
+    { '<leader>sol', '<cmd>ObsidianLinks<cr>', desc = 'Links', ft = 'markdown' },
+    { '<leader>sob', '<cmd>ObsidianBacklinks<cr>', desc = 'Backlinks', ft = 'markdown' },
+    { '<leader>soc', '<cmd>ObsidianTOC<cr>', desc = 'TOC', ft = 'markdown' },
+    { 'gl', '<cmd>ObsidianLink<cr>', desc = 'Obsidian Link', mode = 'v', ft = 'markdown' },
+    { 'gL', '<cmd>ObsidianLinkNew<cr>', desc = 'Obsidian Link New', mode = 'v', ft = 'markdown' },
   },
   ---@type obsidian.config.ClientOpts
   opts = {

@@ -3,17 +3,18 @@ local pyutils = require 'utils.python'
 return {
   {
     'nvim-neotest/neotest',
+    lazy = true,
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-neotest/neotest-python',
-      'nvim-neotest/neotest-golang',
+      -- 'nvim-neotest/neotest-golang',
     },
     opts = {
       adapters = {
-        ['neotest-golang'] = {
-          go_test_args = { '-v', '-race', '-count=1', '-timeout=60s' },
-          dap_go_enabled = true,
-        },
+        -- ['neotest-golang'] = {
+        --   go_test_args = { '-v', '-race', '-count=1', '-timeout=60s' },
+        --   dap_go_enabled = true,
+        -- },
         ['neotest-python'] = {
           python = pyutils.get_python_path(),
         },
@@ -114,6 +115,7 @@ return {
   },
   {
     'mfussenegger/nvim-dap',
+    lazy = true,
     -- stylua: ignore
     keys = {
       { "<leader>td", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest" },

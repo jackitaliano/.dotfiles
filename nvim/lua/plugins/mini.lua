@@ -19,10 +19,10 @@ return {
       { '<leader>e', minifiles_toggle, desc = 'explore' },
     },
   },
-  {
-    'echasnovski/mini.ai',
-    opts = {
-      n_lines = 500,
-    },
-  },
+  -- {
+  --   'echasnovski/mini.ai',
+  --   opts = {
+  --     n_lines = 500,
+  --   },
+  -- },
 }

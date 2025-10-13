@@ -1,0 +1,9 @@
+#!/bin/bash
+
+window_name=$1
+
+[ -z "$window_name" ] && exit 1
+
+window_id=$(yabai -m query --windows | jq -e -r --arg window_name "$window_name" '[ .[] | select(.app == $window_name) ] as $matches | if ($matches | length) == 1 then $matches[0].id else empty end')
+
+[ -z "$window_id" ] && open -a "$window_name" || yabai -m window --focus "$window_id"

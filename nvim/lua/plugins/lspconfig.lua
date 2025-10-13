@@ -63,7 +63,7 @@ return {
           },
         },
         terraformls = {},
-
+        ts_ls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -74,6 +74,8 @@ return {
             },
           },
         },
+        glow = {},
+        marksman = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})

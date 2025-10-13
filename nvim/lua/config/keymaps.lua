@@ -53,6 +53,11 @@ map_ui('n', 'C', function()
   vim.notify('conceallevel=' .. vim.wo.conceallevel, vim.log.levels.INFO)
 end, 'Local Conceal')
 
+local BIG_SIZE = 0.66
+map_ui('n', 'b', function()
+  vim.cmd('vertical resize ' .. math.floor(vim.o.columns * BIG_SIZE))
+end, 'Resize current window to 2/3 width')
+
 -------------------------------------
 -- Windows
 -------------------------------------

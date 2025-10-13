@@ -4,6 +4,7 @@ local COPILOT_ENABLED = os.getenv 'COPILOT_ENABLED' or 'False' == 'True'
 
 return {
   {
+    lazy = true,
     'github/copilot.vim',
     enabled = COPILOT_ENABLED,
     config = function()

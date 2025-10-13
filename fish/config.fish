@@ -4,8 +4,16 @@ test -e "$HOME/.tmux_path"; and set -x TMUX_PATH (cat $HOME/.tmux_path)
 
 set -U fish_history_max_entries 5000
 
-contains $localBin $fish_user_paths; or fish_add_path "$HOME/.local/bin"
-contains $localBinScripts $fish_user_paths; or fish_add_path "$HOME/.local/bin/scripts"
+set -l localBin "$HOME/.local/bin"
+set -l localBinScripts "$HOME/.local/bin/scripts"
+set -l goBin "$HOME/go/bin"
+set -l tmpBin "/tmp/bin"
+
+contains $localBin $fish_user_paths; or fish_add_path $localBin
+contains $localBinScripts $fish_user_paths; or fish_add_path $localBinScripts
+
+test -e $goBin; and contains $goBin $fish_user_paths; or fish_add_path $goBin
+test -e $tmpBin; and contains $tmpBin $fish_user_paths; or fish_add_path $tmpBin
 
 status is-interactive || exit 0
 

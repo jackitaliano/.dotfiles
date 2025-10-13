@@ -3,6 +3,9 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     config = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
@@ -26,7 +29,9 @@ return {
           'regex',
           'json',
           'terraform',
+          'go',
         },
+
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
@@ -48,19 +53,19 @@ return {
             enable = true,
             set_jumps = true,
             goto_next_start = {
-              [']]'] = '@function.outer',
+              [']m'] = '@function.outer',
               [']c'] = '@class.outer',
             },
             goto_next_end = {
-              [']['] = '@function.outer',
+              [']M'] = '@function.outer',
               [']C'] = '@class.outer',
             },
             goto_previous_start = {
-              ['[['] = '@function.outer',
+              ['[m'] = '@function.outer',
               ['[c'] = '@class.outer',
             },
             goto_previous_end = {
-              ['[]'] = '@function.outer',
+              ['[M'] = '@function.outer',
               ['[C'] = '@class.outer',
             },
           },
@@ -78,12 +83,6 @@ return {
 
       require('nvim-treesitter.configs').setup(opts)
     end,
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
   {
 
