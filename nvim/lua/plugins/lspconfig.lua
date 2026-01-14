@@ -74,7 +74,6 @@ return {
             },
           },
         },
-        glow = {},
         marksman = {},
       }
 
@@ -95,6 +94,7 @@ return {
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
+        -- automatic_enable = true,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -127,8 +127,8 @@ return {
 
           map('gD', Snacks.picker.lsp_declarations, 'Goto Declaration')
 
-          map('<leader>ss', Snacks.picker.lsp_symbols, 'Document Symbols')
-          map('<leader>sS', Snacks.picker.lsp_workspace_symbols, 'Workspace Symbols')
+          map('<leader>s', Snacks.picker.lsp_symbols, 'Document Symbols')
+          map('<leader>S', Snacks.picker.lsp_workspace_symbols, 'Workspace Symbols')
 
           map('gt', Snacks.picker.lsp_type_definitions, 'Goto Type Definition')
 

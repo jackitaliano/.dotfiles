@@ -49,8 +49,8 @@ return {
     local trouble = require 'trouble'
     trouble.setup(opts)
 
-    local grey = '#161616'
-    local light_grey = '#2f2f31'
+    local grey = '#1E1E2E'
+    local light_grey = '#282838'
 
     local hl_groups = {
       TroubleFsCount = grey,

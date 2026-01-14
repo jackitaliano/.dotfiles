@@ -53,6 +53,74 @@ opt.fillchars = {
   eob = ' ',
 }
 
+vim.opt.foldmethod = 'expr'
+vim.opt.foldtext = 'v:lua.vim.treesitter.foldtext()'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
+-- Apply a custom fold query per language
+local fold_queries = {
+  python = [[
+    [
+      (class_definition body: (block) @fold)
+      (function_definition body: (block) @fold)
+    ]
+  ]],
+  lua = [[
+    [
+      (function_declaration body: (block) @fold)
+      (function_definition body: (block) @fold)
+      (table_constructor body: (field) @fold)
+    ]
+  ]],
+  javascript = [[
+    [
+      (function_declaration body: (statement_block) @fold)
+      (function_expression body: (statement_block) @fold)
+      (arrow_function body: (statement_block) @fold)
+      (class_declaration body: (class_body) @fold)
+    ]
+  ]],
+  typescript = [[
+    [
+      (function_declaration body: (statement_block) @fold)
+      (function_signature body: (statement_block) @fold)
+      (arrow_function body: (statement_block) @fold)
+      (class_declaration body: (class_body) @fold)
+    ]
+  ]],
+  c = [[
+    [
+      (function_definition body: (compound_statement) @fold)
+    ]
+  ]],
+  cpp = [[
+    [
+      (function_definition body: (compound_statement) @fold)
+      (class_specifier body: (field_declaration_list) @fold)
+    ]
+  ]],
+  rust = [[
+    [
+      (function_item body: (block) @fold)
+      (impl_item body: (declaration_list) @fold)
+    ]
+  ]],
+}
+
+-- Apply each query dynamically when its filetype loads
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local lang = args.match
+    local query = fold_queries[lang]
+    if query then
+      pcall(vim.treesitter.query.set, lang, 'folds', query)
+    end
+  end,
+})
+
 -------------------------------------
 -- Search
 -------------------------------------

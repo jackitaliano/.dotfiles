@@ -18,13 +18,15 @@ local colors = {
   gray2  = '#2c323c',
   gray3  = '#3e4452',
   gray   = '#232326',
+  none   = '#282838',
+  -- none   = '#ffffff',
 }
 
 local onedark = {
   normal = {
     a = { fg = colors.bg, bg = colors.green, gui = 'bold' },
-    b = { fg = colors.fg, bg = colors.gray },
-    c = { fg = colors.fg, bg = colors.gray },
+    b = { fg = colors.fg, bg = colors.none },
+    c = { fg = colors.fg, bg = colors.none },
   },
   command = { a = { fg = colors.bg, bg = colors.yellow, gui = 'bold' } },
   insert = { a = { fg = colors.bg, bg = colors.blue, gui = 'bold' } },
@@ -32,54 +34,61 @@ local onedark = {
   terminal = { a = { fg = colors.bg, bg = colors.cyan, gui = 'bold' } },
   replace = { a = { fg = colors.bg, bg = colors.red1, gui = 'bold' } },
   inactive = {
-    a = { fg = colors.gray1, bg = colors.bg, gui = 'bold' },
-    b = { fg = colors.gray1, bg = colors.bg },
-    c = { fg = colors.gray1, bg = colors.gray },
+    a = { fg = colors.gray1, bg = colors.none, gui = 'bold' },
+    b = { fg = colors.gray1, bg = colors.none },
+    c = { fg = colors.gray1, bg = colors.none },
   },
 }
 
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  opts = {
-    options = {
-      icons_enabled = true,
-      theme = onedark,
-      component_separators = { left = '│', right = '│' },
-      section_separators = { left = '│', right = '│' },
-      disabled_filetypes = {
-        statusline = {},
-        winbar = {},
+  config = function()
+    local opts = {
+      options = {
+        icons_enabled = true,
+        theme = onedark,
+        component_separators = { left = '│', right = '│' },
+        section_separators = { left = '│', right = '│' },
+        disabled_filetypes = {
+          statusline = {},
+          winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        always_show_tabline = true,
+        globalstatus = false,
+        refresh = {
+          statusline = 100,
+          tabline = 100,
+          winbar = 100,
+        },
       },
-      ignore_focus = {},
-      always_divide_middle = true,
-      always_show_tabline = true,
-      globalstatus = false,
-      refresh = {
-        statusline = 100,
-        tabline = 100,
-        winbar = 100,
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'filename', 'branch' },
+        lualine_c = { 'grapple' },
+        lualine_x = { 'searchcount', 'selectioncount', 'diff', 'diagnostics', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       },
-    },
-    sections = {
-      lualine_a = { 'mode' },
-      lualine_b = { 'filename', 'branch' },
-      lualine_c = { 'grapple' },
-      lualine_x = { 'searchcount', 'selectioncount', 'diff', 'diagnostics', 'filetype' },
-      lualine_y = { 'progress' },
-      lualine_z = { 'location' },
-    },
-    inactive_sections = {
-      lualine_a = {},
-      lualine_b = {},
-      -- lualine_c = { 'filename' },
-      lualine_x = { 'location' },
-      lualine_y = {},
-      lualine_z = {},
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {},
-  },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        -- lualine_c = { 'filename' },
+        lualine_x = { 'location' },
+        lualine_y = {},
+        lualine_z = {},
+      },
+      tabline = {},
+      winbar = {},
+      inactive_winbar = {},
+      extensions = {},
+    }
+
+    require('lualine').setup(opts)
+
+    vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = 'none' })
+  end,
 }

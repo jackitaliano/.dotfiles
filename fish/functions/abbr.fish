@@ -51,3 +51,4 @@ abbr -a pipd 'pip install $DEFAULT_PIP_INSTALLS'
 abbr -a pipr 'pip install -r requirements.txt'
 abbr -a pt pytest
 abbr -a ptc 'pytest --cov --cov-report=term-missing'
+abbr -a spv 'source .venv/bin/activate.fish'

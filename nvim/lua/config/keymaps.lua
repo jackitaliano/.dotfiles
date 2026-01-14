@@ -54,9 +54,18 @@ map_ui('n', 'C', function()
 end, 'Local Conceal')
 
 local BIG_SIZE = 0.66
+local EQUAL_SIZE = 0.50
 map_ui('n', 'b', function()
   vim.cmd('vertical resize ' .. math.floor(vim.o.columns * BIG_SIZE))
 end, 'Resize current window to 2/3 width')
+
+map_ui('n', 'e', function()
+  vim.cmd('vertical resize ' .. math.floor(vim.o.columns * EQUAL_SIZE))
+end, 'Resize current window to 1/2 width')
+
+map_ui('n', 'w', function()
+  vim.wo.wrap = not vim.wo.wrap
+end, 'Toggle Wrap')
 
 -------------------------------------
 -- Windows

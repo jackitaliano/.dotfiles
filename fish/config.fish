@@ -24,3 +24,6 @@ source $HOME/.config/fish/functions/abbr.fish
 source $HOME/.local/bin/scripts/source_funcs.fish
 
 #source ./functions/pyenv.fish
+
+# opencode
+fish_add_path /home/jack/.opencode/bin

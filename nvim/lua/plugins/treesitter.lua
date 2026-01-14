@@ -36,6 +36,7 @@ return {
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true },
+        fold = { enable = true },
         textobjects = {
           select = {
             enable = true,
@@ -82,6 +83,8 @@ return {
       }
 
       require('nvim-treesitter.configs').setup(opts)
+
+      vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#282838' })
     end,
   },
   {

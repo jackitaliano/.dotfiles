@@ -26,6 +26,7 @@ return {
         },
       }
       require('onedark').load()
+      vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#282838' })
     end,
     -- config = function()
     --   require('onedark').setup {
